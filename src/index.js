@@ -1,5 +1,9 @@
 import express from 'express'
 import mssql from 'mssql'
+import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
+dotenv.config()
+
 const app = express()
 const port = 3000
 
@@ -26,8 +30,9 @@ app.listen(port, () => {
 
 app.get('/noticias', async (req, res) => {
   try {
-    const result = await mssql.query`select * from noticias`
-    res.json(getResponse(200, result.recordset)).status(200)
+    const result = await mssql.query(`select * from noticias`)
+    console.log(result)
+    res.json(getDBFormattedResponse(200, result.recordset)).status(200)
   } catch (err) {
     console.log(err)
   }
@@ -35,11 +40,57 @@ app.get('/noticias', async (req, res) => {
 
 app.get('/autores/:id/noticias', async (req, res) => {
   try {
-    const result =
-      await mssql.query`select * from noticias where autor_id = ${req.params.id}`
-    res.json(getResponse(200, result.recordset)).status(200)
+    const result = await mssql.query(
+      `select * from noticias where autor_id = ?`,
+      req.params.id
+    )
+    res.json(getDBFormattedResponse(200, result.recordset)).status(200)
   } catch (err) {
     console.error(err)
+  }
+})
+
+app.get('/noticias/tipos/:tipo', async (req, res) => {
+  try {
+    const result =
+      await mssql.query`select * from noticias where tipo = ${req.params.tipo}`
+    console.log(result)
+    res.json(result.recordset)
+  } catch (err) {
+    console.log(err)
+  }
+})
+
+app.post('/login', async (req, res) => {
+  const { email, password } = req.body
+  try {
+    const result =
+      await mssql.query`select * from usuarios where email = ${email} and password = ${password}`
+    if (result.recordset.length > 0) {
+      const token = jwt.sign({ email }, process.env.JWT_SECRET_KEY, {
+        expiresIn: '24h'
+      })
+      res
+        .json({
+          status: 200,
+          token
+        })
+        .status(200)
+        .end()
+    } else {
+      res.json({ status: 401, error: 'Invalid credentials' }).status(401)
+    }
+  } catch (err) {
+    console.log(err)
+  }
+})
+
+app.post('/register', async (req, res) => {
+  const { email, password } = req.body
+
+  try {
+  } catch (err) {
+    console.log(err)
   }
 })
 
@@ -53,7 +104,7 @@ function connectToDB() {
   })
 }
 
-function getResponse(status, rows, err) {
+function getDBFormattedResponse(status, rows, err) {
   const response = {
     status,
     data: rows
@@ -61,4 +112,5 @@ function getResponse(status, rows, err) {
   if (err) {
     response.error = err
   }
+  return response
 }
