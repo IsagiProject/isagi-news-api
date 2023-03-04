@@ -1,9 +1,9 @@
-import express from 'express'
+import express, { Router } from 'express'
 import mssql from 'mssql'
 import crypto from 'crypto'
 import jwt from 'jsonwebtoken'
 
-const router = express.Router()
+const router: Router = express.Router()
 
 router.post('/register', async (req, res) => {
   const { email, password } = req.body
@@ -42,7 +42,9 @@ router.post('/register', async (req, res) => {
     insertRequest.input('email', mssql.VarChar, email)
     insertRequest.input('password', mssql.VarChar, hash)
 
-    await insertRequest.query()
+    await insertRequest.query(
+      'insert into usuarios (email, password) values (@email, @password) '
+    )
 
     res.json({ status: 200, message: 'User created' }).status(200).end()
   } catch (err) {
@@ -64,7 +66,7 @@ router.post('/login', async (req, res) => {
       const { nombre, idUsuario } = result.recordset[0]
       const token = jwt.sign(
         { id: idUsuario, nombre },
-        process.env.JWT_SECRET_KEY,
+        process.env.JWT_SECRET_KEY!,
         {
           expiresIn: remember ? '1y' : '1h'
         }
@@ -76,9 +78,9 @@ router.post('/login', async (req, res) => {
         })
         .status(200)
         .end()
-    } else {
-      res.json({ status: 401, error: 'Invalid credentials' }).status(401)
+      return
     }
+    res.json({ status: 401, error: 'Invalid credentials' }).status(401).end()
   } catch (err) {
     console.log(err)
   }

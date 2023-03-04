@@ -1,0 +1,14 @@
+[
+  {
+    "_id": "1c967e9a-5b17-459b-82b0-8ffa7165d0aa",
+    "colId": "159f833f-ea47-476d-954d-01416029652f",
+    "containerId": "",
+    "name": "PorTipo",
+    "url": "",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2023-03-04T10:32:22.626Z",
+    "modified": "2023-03-04T10:32:22.626Z",
+    "headers": []
+  }
+]

@@ -1,7 +1,8 @@
-import express from 'express'
+import express, { Router } from 'express'
 import mssql from 'mssql'
+import { getDBFormattedResponse } from '../utils/format.js'
 
-const router = express.Router()
+const router: Router = express.Router()
 
 router.get('/tipos/:tipo', async (req, res) => {
   try {
@@ -14,7 +15,7 @@ router.get('/tipos/:tipo', async (req, res) => {
         )
       )`
     )
-    res.json(result.recordset)
+    res.json(getDBFormattedResponse(200, result.recordset)).status(200).end()
   } catch (err) {
     console.log(err)
   }

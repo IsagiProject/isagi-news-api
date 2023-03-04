@@ -1,19 +1,20 @@
-import express from 'express'
+import express, { Request, Response } from 'express'
 import mssql from 'mssql'
 import dotenv from 'dotenv'
-import authentication from './routes/authentication.js'
+import authentication from './routes/auth.js'
 import news from './routes/news.js'
+import { getDBFormattedResponse } from './utils/format.js'
 
 dotenv.config()
 
 const app = express()
 const port = 3000
 
-const sqlConfig = {
+const sqlConfig: mssql.config = {
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  server: process.env.DB_HOST,
+  server: process.env.DB_HOST as string,
   pool: {
     max: 10,
     min: 0,
@@ -36,29 +37,30 @@ app.listen(port, () => {
 app.use('/auth', authentication)
 app.use('/noticias', news)
 
-app.get('/noticias', async (req, res) => {
+app.get('/noticias', async (req: Request, res: Response) => {
   try {
     const result = await mssql.query(`select * from noticias`)
     console.log(result)
-    res.json(getDBFormattedResponse(200, result.recordset)).status(200)
+    res.json(getDBFormattedResponse(200, result.recordset)).status(200).end()
   } catch (err) {
     console.log(err)
   }
 })
 
-app.get('/autores/:id/noticias', async (req, res) => {
+app.get('/autores/:id/noticias', async (req: Request, res: Response) => {
   try {
-    const result = await mssql.query(
-      `select * from noticias where autor_id = ?`,
-      req.params.id
+    const request = new mssql.Request()
+    request.input('id', mssql.Int, req.params.id)
+    const result = await request.query(
+      `select * from noticias where autor_id = @id`
     )
-    res.json(getDBFormattedResponse(200, result.recordset)).status(200)
+    res.json(getDBFormattedResponse(200, result.recordset)).status(200).end()
   } catch (err) {
     console.error(err)
   }
 })
 
-function connectToDB() {
+function connectToDB(): void {
   mssql.connect(sqlConfig, (err) => {
     if (err) {
       console.log(err)
@@ -66,15 +68,4 @@ function connectToDB() {
       console.log('Connected to DB')
     }
   })
-}
-
-function getDBFormattedResponse(status, rows, err) {
-  const response = {
-    status,
-    data: rows
-  }
-  if (err) {
-    response.error = err
-  }
-  return response
 }
