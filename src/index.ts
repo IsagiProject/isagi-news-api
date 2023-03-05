@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 import authentication from './routes/auth.js'
 import news from './routes/news.js'
 import sales from './routes/sales.js'
-import { getDBFormattedResponse } from './utils/format.js'
+import authors from './routes/authors.js'
 
 dotenv.config()
 
@@ -36,31 +36,9 @@ app.listen(port, () => {
 })
 
 app.use('/auth', authentication)
-app.use('/noticias', news)
+app.use('/news', news)
 app.use('/sales', sales)
-
-app.get('/noticias', async (req: Request, res: Response) => {
-  try {
-    const result = await mssql.query(`select * from noticias`)
-    console.log(result)
-    res.json(getDBFormattedResponse(200, result.recordset)).status(200).end()
-  } catch (err) {
-    console.log(err)
-  }
-})
-
-app.get('/autores/:id/noticias', async (req: Request, res: Response) => {
-  try {
-    const request = new mssql.Request()
-    request.input('id', mssql.Int, req.params.id)
-    const result = await request.query(
-      `select * from noticias where autor_id = @id`
-    )
-    res.json(getDBFormattedResponse(200, result.recordset)).status(200).end()
-  } catch (err) {
-    console.error(err)
-  }
-})
+app.use('/authors', authors)
 
 function connectToDB(): void {
   mssql.connect(sqlConfig, (err) => {

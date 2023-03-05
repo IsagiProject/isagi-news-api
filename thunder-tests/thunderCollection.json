@@ -1,7 +1,7 @@
 [
   {
     "_id": "159f833f-ea47-476d-954d-01416029652f",
-    "colName": "Noticias",
+    "colName": "News",
     "created": "2023-03-04T10:32:14.445Z",
     "sortNum": 10000,
     "folders": []
@@ -15,9 +15,16 @@
   },
   {
     "_id": "4cea7cf9-6bc9-46e4-8121-a0196cefcb7d",
-    "colName": "Ofertas",
+    "colName": "Sales",
     "created": "2023-03-05T19:38:30.981Z",
     "sortNum": 30000,
+    "folders": []
+  },
+  {
+    "_id": "fde63fdd-88a2-450d-b961-09bea3f04b3d",
+    "colName": "Authors",
+    "created": "2023-03-05T20:01:50.320Z",
+    "sortNum": 40000,
     "folders": []
   }
 ]
