@@ -4,11 +4,27 @@
     "colId": "159f833f-ea47-476d-954d-01416029652f",
     "containerId": "",
     "name": "PorTipo",
-    "url": "",
+    "url": "http://localhost:3000/noticias/tipos/videojuegos",
     "method": "GET",
     "sortNum": 10000,
     "created": "2023-03-04T10:32:22.626Z",
-    "modified": "2023-03-04T10:32:22.626Z",
-    "headers": []
+    "modified": "2023-03-04T10:37:00.733Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "cf55c9d0-bbc5-47a9-b1de-86222b2e54c8",
+    "colId": "4cea7cf9-6bc9-46e4-8121-a0196cefcb7d",
+    "containerId": "",
+    "name": "GetAll",
+    "url": "http://localhost:3000/sales",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2023-03-05T19:38:41.211Z",
+    "modified": "2023-03-05T19:39:55.120Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]

@@ -4,17 +4,10 @@ import { getDBFormattedResponse } from '../utils/format.js'
 
 const router: Router = express.Router()
 
-router.get('/tipos/:tipo', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const request = new mssql.Request()
-    request.input('tipo', mssql.VarChar, req.params.tipo)
-    const result = await request.query(
-      `select * from noticias where idNoticia in (
-        select idNoticia from tipos_noticias where idTipo in (
-          select idTipo from tipos where LOWER(nombre) = LOWER(@tipo)
-        )
-      )`
-    )
+    const result = await request.query(`select * from sales`)
     res.json(getDBFormattedResponse(200, result.recordset)).status(200).end()
   } catch (err) {
     console.log(err)

@@ -3,6 +3,7 @@ import mssql from 'mssql'
 import dotenv from 'dotenv'
 import authentication from './routes/auth.js'
 import news from './routes/news.js'
+import sales from './routes/sales.js'
 import { getDBFormattedResponse } from './utils/format.js'
 
 dotenv.config()
@@ -36,6 +37,7 @@ app.listen(port, () => {
 
 app.use('/auth', authentication)
 app.use('/noticias', news)
+app.use('/sales', sales)
 
 app.get('/noticias', async (req: Request, res: Response) => {
   try {

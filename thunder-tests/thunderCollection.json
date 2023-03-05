@@ -5,5 +5,19 @@
     "created": "2023-03-04T10:32:14.445Z",
     "sortNum": 10000,
     "folders": []
+  },
+  {
+    "_id": "934f3c66-d9cd-427a-a5a6-c711ff74eca5",
+    "colName": "Auth",
+    "created": "2023-03-04T10:33:30.971Z",
+    "sortNum": 20000,
+    "folders": []
+  },
+  {
+    "_id": "4cea7cf9-6bc9-46e4-8121-a0196cefcb7d",
+    "colName": "Ofertas",
+    "created": "2023-03-05T19:38:30.981Z",
+    "sortNum": 30000,
+    "folders": []
   }
 ]
