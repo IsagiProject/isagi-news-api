@@ -22,7 +22,7 @@ router.post('/register', async (req, res) => {
     }
 
     if (result.recordset.length > 0) {
-      res.json({ status: 409, error: 'User already exists' }).status(409).end()
+      res.json({ status: 422, error: 'User already exists' }).status(422).end()
       return
     }
 
