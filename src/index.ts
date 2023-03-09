@@ -30,6 +30,11 @@ const sqlConfig: mssql.config = {
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  next()
+})
+
 app.listen(port, () => {
   connectToDB()
   console.log(`Example app listening at http://localhost:${port}`)
