@@ -12,9 +12,7 @@
   "paths": {
     "/auth/register": {
       "post": {
-        "tags": [
-          "auth"
-        ],
+        "tags": ["auth"],
         "requestBody": {
           "content": {
             "application/x-www-form-urlencoded": {
@@ -61,9 +59,7 @@
     },
     "/auth/login": {
       "post": {
-        "tags": [
-          "auth"
-        ],
+        "tags": ["auth"],
         "requestBody": {
           "content": {
             "application/x-www-form-urlencoded": {
@@ -98,10 +94,81 @@
         }
       }
     },
+    "/authors/{id}/news": {
+      "get": {
+        "tags": ["authors"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id del autor",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de noticias del autor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/news": {
       "get": {
-        "tags": [
-          "news"
+        "tags": ["news"],
+        "responses": {
+          "200": {
+            "description": "Lista de noticias",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/news/types": {
+      "get": {
+        "tags": ["news"],
+        "responses": {
+          "200": {
+            "description": "Lista de tipos/categorias de noticias",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewsTypeResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/news/types/{type}": {
+      "get": {
+        "tags": ["news"],
+        "parameters": [
+          {
+            "name": "type",
+            "in": "path",
+            "description": "Tipo/categoria de noticia",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -109,20 +176,52 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/NewsResponse"
-                  }
+                  "$ref": "#/components/schemas/NewsResponse"
                 }
               }
             }
-          },
-          "401": {
-            "description": "Token no valido",
+          }
+        }
+      }
+    },
+    "/sales": {
+      "get": {
+        "tags": ["sales"],
+        "responses": {
+          "200": {
+            "description": "Lista de ofertas",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MessageResponse"
+                  "$ref": "#/components/schemas/SalesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sales/{id}": {
+      "get": {
+        "tags": ["sales"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id de la oferta",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Oferta con el id especificado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SalesResponse"
                 }
               }
             }
@@ -158,10 +257,7 @@
             "description": "Contraseña del usuario"
           }
         },
-        "required": [
-          "email",
-          "password"
-        ]
+        "required": ["email", "password"]
       },
       "LoginRequest": {
         "type": "object",
@@ -179,11 +275,7 @@
             "description": "Recordar usuario"
           }
         },
-        "required": [
-          "email",
-          "password",
-          "remember"
-        ]
+        "required": ["email", "password", "remember"]
       },
       "LoginResponse": {
         "type": "object",
@@ -205,7 +297,7 @@
             "type": "integer",
             "description": "Codigo de estado de la respuesta"
           },
-          "news": {
+          "data": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/News"
@@ -235,6 +327,90 @@
           "photo": {
             "type": "string",
             "description": "Enlace a la foto de la noticia"
+          }
+        }
+      },
+      "NewsTypeResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "Codigo de estado de la respuesta"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewsType"
+            }
+          }
+        }
+      },
+      "NewsType": {
+        "type": "object",
+        "properties": {
+          "type_id": {
+            "type": "integer",
+            "description": "Identificador del tipo/categoria de noticia"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nombre del tipo/categoria de noticia"
+          },
+          "image": {
+            "type": "string",
+            "description": "Enlace a la imagen del tipo/categoria de noticia"
+          }
+        }
+      },
+      "SalesResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "Codigo de estado de la respuesta"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Sale"
+            }
+          }
+        }
+      },
+      "Sale": {
+        "type": "object",
+        "properties": {
+          "sale_id": {
+            "type": "integer",
+            "description": "Identificador de la oferta"
+          },
+          "title": {
+            "type": "string",
+            "description": "Titulo de la oferta"
+          },
+          "description": {
+            "type": "string",
+            "description": "Descripcion de la oferta"
+          },
+          "image": {
+            "type": "string",
+            "description": "Enlace a la imagen de la oferta"
+          },
+          "shop": {
+            "type": "string",
+            "description": "Tienda de la oferta"
+          },
+          "old_price": {
+            "type": "string",
+            "description": "Precio antiguo de la oferta"
+          },
+          "new_price": {
+            "type": "string",
+            "description": "Precio nuevo de la oferta"
+          },
+          "user_id": {
+            "type": "integer",
+            "description": "Identificador del usuario que ha publicado la oferta (proximamente los datos)"
           }
         }
       }
