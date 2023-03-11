@@ -54,5 +54,45 @@
     "headers": [],
     "params": [],
     "tests": []
+  },
+  {
+    "_id": "f3f39ef8-1e52-419c-9706-ff4ab2acebe5",
+    "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
+    "containerId": "5fab3e31-b649-4213-b980-66a0d9c2fff0",
+    "name": "GetById",
+    "url": "http://localhost:3000/sales/1",
+    "method": "GET",
+    "sortNum": 30000,
+    "created": "2023-03-09T18:14:10.262Z",
+    "modified": "2023-03-09T18:14:17.646Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "2d5c59f1-07c3-4562-8fff-4aecd3a06d82",
+    "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
+    "containerId": "3f85ebdd-e076-4abe-aa58-2f60a7632758",
+    "name": "Login",
+    "url": "",
+    "method": "GET",
+    "sortNum": 40000,
+    "created": "2023-03-10T09:22:04.285Z",
+    "modified": "2023-03-10T09:22:04.285Z",
+    "headers": []
+  },
+  {
+    "_id": "bb76ee32-321c-4d7c-9c84-ab8b1e696f25",
+    "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
+    "containerId": "307558ef-8bcb-4303-869d-250edcdcd4f3",
+    "name": "GetTypes",
+    "url": "http://localhost:3000/news/types/",
+    "method": "GET",
+    "sortNum": 60000,
+    "created": "2023-03-10T11:21:09.317Z",
+    "modified": "2023-03-10T11:21:17.330Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]
