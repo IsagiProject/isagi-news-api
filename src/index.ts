@@ -5,11 +5,16 @@ import authentication from './routes/auth.js'
 import news from './routes/news.js'
 import sales from './routes/sales.js'
 import authors from './routes/authors.js'
+import swaggerUi from 'swagger-ui-express'
+import fs from 'fs'
 
 dotenv.config()
 
 const app = express()
 const port = 3000
+const swaggerDocument = JSON.parse(
+  fs.readFileSync('./docs/swagger.json', 'utf8')
+)
 
 const sqlConfig: mssql.config = {
   user: process.env.DB_USER,
@@ -44,6 +49,9 @@ app.use('/auth', authentication)
 app.use('/news', news)
 app.use('/sales', sales)
 app.use('/authors', authors)
+
+app.use('/docs', swaggerUi.serve)
+app.get('/docs', swaggerUi.setup(swaggerDocument))
 
 function connectToDB(): void {
   mssql.connect(sqlConfig, (err) => {
