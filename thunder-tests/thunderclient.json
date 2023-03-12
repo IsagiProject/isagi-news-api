@@ -94,5 +94,29 @@
     "headers": [],
     "params": [],
     "tests": []
+  },
+  {
+    "_id": "108ae8d6-8a70-4524-9379-18bb1244b3f7",
+    "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
+    "containerId": "3f85ebdd-e076-4abe-aa58-2f60a7632758",
+    "name": "Recover",
+    "url": "http://localhost:3000/auth/recover",
+    "method": "POST",
+    "sortNum": 70000,
+    "created": "2023-03-12T14:50:05.189Z",
+    "modified": "2023-03-12T15:10:13.299Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "formencoded",
+      "raw": "",
+      "form": [
+        {
+          "name": "email",
+          "value": "test@galder315.ga"
+        }
+      ]
+    },
+    "tests": []
   }
 ]

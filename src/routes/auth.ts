@@ -2,6 +2,7 @@ import express, { Router } from 'express'
 import mssql from 'mssql'
 import crypto from 'crypto'
 import jwt from 'jsonwebtoken'
+import { sendRecoverMail } from '../utils/mailing.js'
 
 const router: Router = express.Router()
 
@@ -86,4 +87,14 @@ router.post('/login', async (req, res) => {
   }
 })
 
+router.post('/recover', async (req, res) => {
+  const { email } = req.body
+
+  try {
+    sendRecoverMail(email)
+    res.send('ok').status(200).end()
+  } catch (err) {
+    console.log(err)
+  }
+})
 export default router
