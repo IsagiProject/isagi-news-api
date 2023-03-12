@@ -14,7 +14,7 @@ router.post('/register', async (req, res) => {
     request.input('email', mssql.VarChar, email)
 
     const result = await request.query(
-      `select * from usuarios where email = @email`
+      `select * from users where email = @email`
     )
 
     if (!email || !password) {
@@ -61,7 +61,7 @@ router.post('/login', async (req, res) => {
     request.input('password', mssql.VarChar, password)
 
     const result = await request.query(
-      `select * from usuarios where email = @email and password = @password`
+      `select * from users where email = @email and password = @password`
     )
     if (result.recordset.length > 0) {
       const { nombre, idUsuario } = result.recordset[0]
