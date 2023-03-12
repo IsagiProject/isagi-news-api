@@ -22,8 +22,7 @@ const recoverMail = {
   html: fs.readFileSync('./src/templates/recover_password.html', 'utf8')
 }
 
-export function sendRecoverMail(mail: string) {
-  const recoverToken = crypto.randomUUID()
+export function sendRecoverMail(mail: string, recoverToken: string) {
   recoverMail.to = mail
   recoverMail.html = recoverMail.html
     .replace('{{email}}', mail)

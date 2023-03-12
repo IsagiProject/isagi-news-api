@@ -74,12 +74,28 @@
     "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
     "containerId": "3f85ebdd-e076-4abe-aa58-2f60a7632758",
     "name": "Login",
-    "url": "",
-    "method": "GET",
+    "url": "http://localhost:3000/auth/login",
+    "method": "POST",
     "sortNum": 40000,
     "created": "2023-03-10T09:22:04.285Z",
-    "modified": "2023-03-10T09:22:04.285Z",
-    "headers": []
+    "modified": "2023-03-12T15:36:02.820Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "formencoded",
+      "raw": "",
+      "form": [
+        {
+          "name": "email",
+          "value": "test@galder315.ga"
+        },
+        {
+          "name": "password",
+          "value": "test"
+        }
+      ]
+    },
+    "tests": []
   },
   {
     "_id": "bb76ee32-321c-4d7c-9c84-ab8b1e696f25",
@@ -100,11 +116,11 @@
     "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
     "containerId": "3f85ebdd-e076-4abe-aa58-2f60a7632758",
     "name": "Recover",
-    "url": "http://localhost:3000/auth/recover",
+    "url": "http://localhost:3000/account/recover",
     "method": "POST",
     "sortNum": 70000,
     "created": "2023-03-12T14:50:05.189Z",
-    "modified": "2023-03-12T15:10:13.299Z",
+    "modified": "2023-03-12T15:51:34.744Z",
     "headers": [],
     "params": [],
     "body": {
@@ -116,6 +132,10 @@
           "value": "test@galder315.ga"
         }
       ]
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0LCJuYW1lIjoiVEVTVCIsImVtYWlsIjoidGVzdEBnYWxkZXIzMTUuZ2EiLCJpYXQiOjE2Nzg2MzYyNzIsImV4cCI6MTY3ODYzOTg3Mn0.vlFaDLiLNmZH5Yqf7qaSkJzdMsJzv6r_mKOoiwvFnrs"
     },
     "tests": []
   }
