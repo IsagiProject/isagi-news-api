@@ -64,9 +64,9 @@ router.post('/login', async (req, res) => {
       `select * from users where email = @email and password = @password`
     )
     if (result.recordset.length > 0) {
-      const { nombre, idUsuario } = result.recordset[0]
+      const { user_id, name } = result.recordset[0]
       const token = jwt.sign(
-        { id: idUsuario, nombre },
+        { user_id, name, email },
         process.env.JWT_SECRET_KEY!,
         {
           expiresIn: remember ? '1y' : '1h'
