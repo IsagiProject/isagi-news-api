@@ -87,4 +87,23 @@ router.post('/login', async (req, res) => {
   }
 })
 
+router.post('/recover', async (req, res) => {
+  const { email } = req.body
+
+  try {
+    const recoverToken = crypto.randomBytes(32).toString('hex')
+    const request = new mssql.Request()
+
+    request.input('email', mssql.VarChar, email)
+    request.input('recover_token', mssql.VarChar, recoverToken)
+    await request.query(
+      `insert into password_recovers (user_id, recover_token) values ((select user_id from users where email=@email), @recover_token)`
+    )
+    sendRecoverMail(email, recoverToken)
+    res.send('ok').status(200).end()
+  } catch (err) {
+    console.log(err)
+  }
+})
+
 export default router

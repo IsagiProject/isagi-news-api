@@ -16,7 +16,10 @@ export function getDBFormattedResponse(
   return response
 }
 
-export function getErrorFormattedResponse(status: number, error: string): ErrorRosponse {
+export function getErrorFormattedResponse(
+  status: number,
+  error: string
+): ErrorRosponse {
   return {
     status,
     error

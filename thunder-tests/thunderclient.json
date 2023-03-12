@@ -116,11 +116,11 @@
     "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
     "containerId": "3f85ebdd-e076-4abe-aa58-2f60a7632758",
     "name": "Recover",
-    "url": "http://localhost:3000/account/recover",
+    "url": "http://localhost:3000/auth/recover",
     "method": "POST",
     "sortNum": 70000,
     "created": "2023-03-12T14:50:05.189Z",
-    "modified": "2023-03-12T15:51:34.744Z",
+    "modified": "2023-03-12T16:08:51.162Z",
     "headers": [],
     "params": [],
     "body": {
@@ -132,10 +132,6 @@
           "value": "test@galder315.ga"
         }
       ]
-    },
-    "auth": {
-      "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0LCJuYW1lIjoiVEVTVCIsImVtYWlsIjoidGVzdEBnYWxkZXIzMTUuZ2EiLCJpYXQiOjE2Nzg2MzYyNzIsImV4cCI6MTY3ODYzOTg3Mn0.vlFaDLiLNmZH5Yqf7qaSkJzdMsJzv6r_mKOoiwvFnrs"
     },
     "tests": []
   }
