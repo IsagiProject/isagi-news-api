@@ -6,7 +6,7 @@
   },
   "servers": [
     {
-      "url": "http://18.100.215.54:3000/"
+      "url": "http://isagiapi.galder315.ga/"
     }
   ],
   "paths": {
@@ -83,6 +83,54 @@
           },
           "401": {
             "description": "Credenciales no validas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/request-recover": {
+      "post": {
+        "tags": ["auth"],
+        "description": "Solicita el envio de un correo electronico para recuperar la contraseña",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/RecoverRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Correo enviado correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos no validos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuario no encontrado",
             "content": {
               "application/json": {
                 "schema": {
@@ -289,6 +337,16 @@
             "description": "Token de autenticacion"
           }
         }
+      },
+      "RecoverRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Email del usuario"
+          }
+        },
+        "required": ["email"]
       },
       "NewsResponse": {
         "type": "object",

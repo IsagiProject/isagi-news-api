@@ -3,6 +3,12 @@ import mssql from 'mssql'
 import crypto from 'crypto'
 import jwt from 'jsonwebtoken'
 import { sendRecoverMail } from '../utils/mailing.js'
+import { userExistsWithEmail } from '../utils/user.js'
+import {
+  getDefaultErrorMessage,
+  getErrorFormattedResponse,
+  getSuccessfulFormatedResponse
+} from '../utils/format.js'
 
 const router: Router = express.Router()
 
@@ -46,10 +52,13 @@ router.post('/register', async (req, res) => {
     await insertRequest.query(
       'insert into usuarios (email, password) values (@email, @password) '
     )
-
-    res.json({ status: 200, message: 'User created' }).status(200).end()
+    res
+      .json(getSuccessfulFormatedResponse(200, 'User created'))
+      .status(200)
+      .end()
   } catch (err) {
     console.log(err)
+    res.json(getDefaultErrorMessage()).status(500).end()
   }
 })
 
@@ -81,16 +90,29 @@ router.post('/login', async (req, res) => {
         .end()
       return
     }
-    res.json({ status: 401, error: 'Invalid credentials' }).status(401).end()
+    res
+      .json(getErrorFormattedResponse(401, 'Invalid credentials'))
+      .status(401)
+      .end()
   } catch (err) {
+    res.json(getDefaultErrorMessage()).status(500).end()
     console.log(err)
   }
 })
 
-router.post('/recover', async (req, res) => {
+router.post('/request-recover', async (req, res) => {
   const { email } = req.body
 
   try {
+    const userExists = await userExistsWithEmail(email)
+    if (!userExists) {
+      res
+        .send(getErrorFormattedResponse(404, 'User not found'))
+        .status(404)
+        .end()
+      return
+    }
+
     const recoverToken = crypto.randomBytes(32).toString('hex')
     const request = new mssql.Request()
 
@@ -100,8 +122,12 @@ router.post('/recover', async (req, res) => {
       `insert into password_recovers (user_id, recover_token) values ((select user_id from users where email=@email), @recover_token)`
     )
     sendRecoverMail(email, recoverToken)
-    res.send('ok').status(200).end()
+    res
+      .send(getSuccessfulFormatedResponse(200, 'Recover email sent'))
+      .status(200)
+      .end()
   } catch (err) {
+    res.json(getDefaultErrorMessage()).status(500).end()
     console.log(err)
   }
 })
