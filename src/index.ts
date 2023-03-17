@@ -12,7 +12,7 @@ import fs from 'fs'
 dotenv.config()
 
 const app = express()
-const port = 3000
+const port = process.env.APP_PORT
 const swaggerDocument = JSON.parse(
   fs.readFileSync('./docs/swagger.json', 'utf8')
 )
