@@ -1,5 +1,5 @@
 import mssql from 'mssql'
-import { DBResponse } from '../types'
+import { DBResponse, ErrorRosponse } from '../types'
 
 export function getDBFormattedResponse(
   status: number,
@@ -14,4 +14,28 @@ export function getDBFormattedResponse(
     response.error = err
   }
   return response
+}
+
+export function getErrorFormattedResponse(
+  status: number,
+  error: string
+): ErrorRosponse {
+  return {
+    status,
+    error
+  }
+}
+
+export function getSuccessfulFormatedResponse(status: number, message: string) {
+  return {
+    status,
+    message
+  }
+}
+
+export function getDefaultErrorMessage() {
+  return {
+    status: 500,
+    error: 'Something went wrong'
+  }
 }
