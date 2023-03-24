@@ -62,6 +62,126 @@
     "tests": []
   },
   {
+    "_id": "f3f39ef8-1e52-419c-9706-ff4ab2acebe5",
+    "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
+    "containerId": "5fab3e31-b649-4213-b980-66a0d9c2fff0",
+    "name": "GetById",
+    "url": "http://localhost:3000/sales/1",
+    "method": "GET",
+    "sortNum": 30000,
+    "created": "2023-03-09T18:14:10.262Z",
+    "modified": "2023-03-09T18:14:17.646Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "2d5c59f1-07c3-4562-8fff-4aecd3a06d82",
+    "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
+    "containerId": "3f85ebdd-e076-4abe-aa58-2f60a7632758",
+    "name": "Login",
+    "url": "http://localhost:3000/auth/login",
+    "method": "POST",
+    "sortNum": 40000,
+    "created": "2023-03-10T09:22:04.285Z",
+    "modified": "2023-03-12T15:36:02.820Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "formencoded",
+      "raw": "",
+      "form": [
+        {
+          "name": "email",
+          "value": "test@galder315.ga"
+        },
+        {
+          "name": "password",
+          "value": "test"
+        }
+      ]
+    },
+    "tests": []
+  },
+  {
+    "_id": "bb76ee32-321c-4d7c-9c84-ab8b1e696f25",
+    "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
+    "containerId": "307558ef-8bcb-4303-869d-250edcdcd4f3",
+    "name": "GetTypes",
+    "url": "http://localhost:3000/news/types/",
+    "method": "GET",
+    "sortNum": 60000,
+    "created": "2023-03-10T11:21:09.317Z",
+    "modified": "2023-03-10T11:21:17.330Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "108ae8d6-8a70-4524-9379-18bb1244b3f7",
+    "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
+    "containerId": "3f85ebdd-e076-4abe-aa58-2f60a7632758",
+    "name": "Recover request",
+    "url": "http://localhost:3000/auth/request-recover",
+    "method": "POST",
+    "sortNum": 70000,
+    "created": "2023-03-12T14:50:05.189Z",
+    "modified": "2023-03-17T07:50:43.358Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "formencoded",
+      "raw": "",
+      "form": [
+        {
+          "name": "email",
+          "value": "test@galder315.ga"
+        },
+        {
+          "name": "token",
+          "value": "aad446bcfcfac00beb0995d11ddcd1279e74d72db5c5a7623767a5e8c97d263b"
+        },
+        {
+          "name": "password",
+          "value": "test"
+        }
+      ]
+    },
+    "tests": []
+  },
+  {
+    "_id": "cb78bac1-21c0-4c14-8981-e76493e36d75",
+    "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
+    "containerId": "3f85ebdd-e076-4abe-aa58-2f60a7632758",
+    "name": "Recover",
+    "url": "http://localhost:3000/auth/recover",
+    "method": "POST",
+    "sortNum": 90000,
+    "created": "2023-03-17T07:48:57.639Z",
+    "modified": "2023-03-17T07:59:23.418Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "formencoded",
+      "raw": "",
+      "form": [
+        {
+          "name": "email",
+          "value": "test@galder315.ga"
+        },
+        {
+          "name": "token",
+          "value": "aa"
+        },
+        {
+          "name": "password",
+          "value": "test"
+        }
+      ]
+    },
+    "tests": []
+  },
+  {
     "_id": "9856d38f-95c3-4629-9df6-6d616afe56a4",
     "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
     "containerId": "307558ef-8bcb-4303-869d-250edcdcd4f3",

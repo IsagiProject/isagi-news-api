@@ -14,6 +14,15 @@ router.get('/', async (req: Request, res: Response) => {
   }
 })
 
+router.get('/types', async (req: Request, res: Response) => {
+  try {
+    const result = await mssql.query(`select * from types`)
+    res.json(getDBFormattedResponse(200, result.recordset)).status(200).end()
+  } catch (err) {
+    console.log(err)
+  }
+})
+
 router.get('/types/:type', async (req: Request, res: Response) => {
   try {
     const request = new mssql.Request()

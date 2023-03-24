@@ -17,12 +17,27 @@ router.get('/', async (req, res) => {
     } else if (order === 'name') {
       result = await request.query(`select * from sales order by name`)
     } else if (order === 'discount') {
-      result = await request.query(
-        `select * from sales order by (new_price / old_price)`
+      result =
+      await request.query(
+        `select s.*, concat('@', u.name) as username from sales s join users u on s.user_id = u.user_id
+     order by (new_price / old_price)`
       )
     } else {
       result = await request.query(`select * from sales order by sale_id`)
     }
+    res.json(getDBFormattedResponse(200, result.recordset)).status(200).end()
+  } catch (err) {
+    console.log(err)
+  }
+})
+
+router.get('/:id', async (req, res) => {
+  try {
+    const request = new mssql.Request()
+    request.input('id', mssql.Int, req.params.id)
+    const result = await request.query(
+      `select s.*, concat('@', u.name) as username from sales s join users u on s.user_id = u.user_id where s.sale_id = @id`
+    )
     res.json(getDBFormattedResponse(200, result.recordset)).status(200).end()
   } catch (err) {
     console.log(err)
