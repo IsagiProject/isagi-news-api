@@ -283,6 +283,17 @@
     "/sales": {
       "get": {
         "tags": ["sales"],
+        "parameters": [
+          {
+            "name": "order",
+            "in": "query",
+            "description": "Orden de la lista",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Lista de ofertas",
