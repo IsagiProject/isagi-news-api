@@ -67,7 +67,7 @@ router.post('/login', async (req, res) => {
   try {
     const request = new mssql.Request()
     request.input('email', mssql.VarChar, email)
-    request.input('password', mssql.VarChar, password)
+    request.input('password', mssql.VarChar, getHashedPassword(password))
 
     const result = await request.query(
       `select * from users where email = @email and password = @password`
