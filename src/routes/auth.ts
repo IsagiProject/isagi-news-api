@@ -50,7 +50,7 @@ router.post('/register', async (req, res) => {
     insertRequest.input('password', mssql.VarChar, hash)
 
     await insertRequest.query(
-      'insert into usuarios (email, password) values (@email, @password) '
+      'insert into users (email, password) values (@email, @password) '
     )
     res
       .json(getSuccessfulFormatedResponse(200, 'User created'))
