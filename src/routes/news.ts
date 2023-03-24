@@ -31,4 +31,16 @@ router.get('/types/:type', async (req: Request, res: Response) => {
   }
 })
 
+router.get('/:id', async (req: Request, res: Response) => {
+  try {
+    const request = new mssql.Request()
+    request.input('id', mssql.Int, req.params.id)
+    const result = await request.query(`select * from news where news_id = @id`)
+    res.json(getDBFormattedResponse(200, result.recordset)).status(200).end()
+  } catch (err) {
+    console.log(err)
+  }
+})
+
+
 export default router

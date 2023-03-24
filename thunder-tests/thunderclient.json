@@ -18,13 +18,19 @@
     "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
     "containerId": "5fab3e31-b649-4213-b980-66a0d9c2fff0",
     "name": "GetAll",
-    "url": "http://localhost:3000/sales",
+    "url": "http://localhost:3000/sales?order=price",
     "method": "GET",
     "sortNum": 10000,
     "created": "2023-03-05T19:38:41.211Z",
-    "modified": "2023-03-07T18:27:56.261Z",
+    "modified": "2023-03-24T07:29:59.236Z",
     "headers": [],
-    "params": [],
+    "params": [
+      {
+        "name": "order",
+        "value": "price",
+        "isPath": false
+      }
+    ],
     "tests": []
   },
   {
@@ -51,6 +57,20 @@
     "sortNum": 10000,
     "created": "2023-03-05T20:02:05.745Z",
     "modified": "2023-03-07T18:28:12.421Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "9856d38f-95c3-4629-9df6-6d616afe56a4",
+    "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
+    "containerId": "307558ef-8bcb-4303-869d-250edcdcd4f3",
+    "name": "ById",
+    "url": "http://localhost:3000/news/57",
+    "method": "GET",
+    "sortNum": 30000,
+    "created": "2023-03-10T09:36:41.268Z",
+    "modified": "2023-03-10T09:37:03.827Z",
     "headers": [],
     "params": [],
     "tests": []
