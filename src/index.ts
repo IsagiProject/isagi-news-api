@@ -6,6 +6,7 @@ import news from './routes/news.js'
 import sales from './routes/sales.js'
 import authors from './routes/authors.js'
 import account from './routes/account.js'
+import faq from './routes/faq.js'
 import swaggerUi from 'swagger-ui-express'
 import fs from 'fs'
 
@@ -51,6 +52,7 @@ app.use('/news', news)
 app.use('/sales', sales)
 app.use('/authors', authors)
 app.use('/account', account)
+app.use('/faq', faq)
 
 app.use('/docs', swaggerUi.serve)
 app.get('/docs', swaggerUi.setup(swaggerDocument))

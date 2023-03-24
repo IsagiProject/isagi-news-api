@@ -188,5 +188,19 @@
       ]
     },
     "tests": []
+  },
+  {
+    "_id": "12335de5-6cb7-4739-af3d-0b40d6d3ff8f",
+    "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
+    "containerId": "8c588c50-7df5-45a4-b215-a4dea9fd958c",
+    "name": "GetAll",
+    "url": "http://localhost:3000/faq",
+    "method": "GET",
+    "sortNum": 100000,
+    "created": "2023-03-24T09:58:47.691Z",
+    "modified": "2023-03-24T10:00:41.901Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]
