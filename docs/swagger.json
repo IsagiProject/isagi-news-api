@@ -290,7 +290,8 @@
             "description": "Orden de la lista",
             "required": false,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "enum": ["price", "title", "discount"]
             }
           }
         ],

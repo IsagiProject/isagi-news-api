@@ -18,9 +18,9 @@ router.get('/', async (req, res) => {
       result = await request.query(
         `select s.*, concat('@', u.name) as username from sales s join users u on s.user_id = u.user_id  order by new_price`
       )
-    } else if (order === 'name') {
+    } else if (order === 'title') {
       result = await request.query(
-        `select s.*, concat('@', u.name) as username from sales s join users u on s.user_id = u.user_id order by name`
+        `select s.*, concat('@', u.name) as username from sales s join users u on s.user_id = u.user_id order by title`
       )
     } else if (order === 'discount') {
       result = await request.query(
