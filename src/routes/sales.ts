@@ -1,8 +1,13 @@
 import express, { Router } from 'express'
 import mssql from 'mssql'
+import validateJWT from '../middleware/validateJWT.js'
 import { getDBFormattedResponse } from '../utils/format.js'
+import jwt from 'jsonwebtoken'
+import { UserJWT } from '../types/index.js'
 
 const router: Router = express.Router()
+
+router.post('*', validateJWT)
 
 router.get('/', async (req, res) => {
   const order = req.query.order
@@ -49,6 +54,23 @@ router.get('/:id', async (req, res) => {
   } catch (err) {
     console.log(err)
   }
+})
+
+router.post('/:id/comments', async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(' ')[1]
+    const data = jwt.decode(token!) as UserJWT
+    const request = new mssql.Request()
+    request.input('sale_id', mssql.Int, req.params.id)
+    request.input('user_id', mssql.Int, data.user_id)
+    request.input('text', mssql.VarChar, req.body.comment)
+    const result = await request.query(
+      'insert into sale_comments (sale_id, user_id, text, parent_id) values (@sale_id, @user_id, @text, null)'
+    )
+  } catch (err) {
+    console.log(err)
+  }
+  res.status(200).send('ok').end()
 })
 
 export default router

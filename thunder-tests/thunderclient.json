@@ -78,7 +78,7 @@
     "method": "POST",
     "sortNum": 40000,
     "created": "2023-03-10T09:22:04.285Z",
-    "modified": "2023-03-12T15:36:02.820Z",
+    "modified": "2023-03-28T16:51:51.869Z",
     "headers": [],
     "params": [],
     "body": {
@@ -92,6 +92,10 @@
         {
           "name": "password",
           "value": "test"
+        },
+        {
+          "name": "remember",
+          "value": "true"
         }
       ]
     },
@@ -193,6 +197,29 @@
     "modified": "2023-03-24T10:00:41.901Z",
     "headers": [],
     "params": [],
+    "tests": []
+  },
+  {
+    "_id": "23d739bf-057b-4c5e-9cb3-738cb05b4c9f",
+    "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
+    "containerId": "5fab3e31-b649-4213-b980-66a0d9c2fff0",
+    "name": "AddComment",
+    "url": "http://localhost:3000/sales/1/comments",
+    "method": "POST",
+    "sortNum": 110000,
+    "created": "2023-03-28T17:57:31.856Z",
+    "modified": "2023-03-28T17:57:31.856Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"comment\": \"test\"\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0LCJuYW1lIjoiVEVTVCIsImVtYWlsIjoidGVzdEBnYWxkZXIzMTUuZ2EiLCJpYXQiOjE2ODAwMjIzMTEsImV4cCI6MTcxMTU3OTkxMX0.Uhm6gER92EWcgqbY-OE1GnEZnhkz5D48ilJN_RoGGI8"
+    },
     "tests": []
   }
 ]
