@@ -83,7 +83,7 @@ router.post('/:id/comments', async (req, res) => {
     const request = new mssql.Request()
     request.input('sale_id', mssql.Int, req.params.id)
     request.input('user_id', mssql.Int, data.user_id)
-    request.input('text', mssql.VarChar, req.body.comment)
+    request.input('text', mssql.NVarChar, req.body.comment)
     await request.query(
       'insert into sale_comments (sale_id, user_id, text, parent_id) values (@sale_id, @user_id, @text, null)'
     )
