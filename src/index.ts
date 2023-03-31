@@ -36,6 +36,7 @@ const sqlConfig: mssql.config = {
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.disable('x-powered-by')
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
