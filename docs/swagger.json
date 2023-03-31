@@ -337,7 +337,7 @@
         }
       }
     },
-    "sales/{id}/comments": {
+    "/sales/{id}/comments": {
       "get": {
         "tags": ["sales"],
         "parameters": [
