@@ -87,7 +87,6 @@ router.post('/:id/comments', async (req, res) => {
     await request.query(
       'insert into sale_comments (sale_id, user_id, text, parent_id) values (@sale_id, @user_id, @text, null)'
     )
-    console.log(req.body.comment)
     res
       .json(getSuccessfulFormatedResponse(200, 'Comment added'))
       .status(200)
