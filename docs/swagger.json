@@ -218,6 +218,23 @@
         }
       }
     },
+    "/faq": {
+      "get": {
+        "tags": ["faq"],
+        "responses": {
+          "200": {
+            "description": "Lista de preguntas frecuentes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaqResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/news": {
       "get": {
         "tags": ["news"],
@@ -559,6 +576,21 @@
           "user_id": {
             "type": "integer",
             "description": "Identificador del usuario que ha publicado la oferta (proximamente los datos)"
+          }
+        }
+      },
+      "FaqResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "Codigo de estado de la respuesta"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Faq"
+            }
           }
         }
       }
