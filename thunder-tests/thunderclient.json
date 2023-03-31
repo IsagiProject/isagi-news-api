@@ -221,5 +221,19 @@
       "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0LCJuYW1lIjoiVEVTVCIsImVtYWlsIjoidGVzdEBnYWxkZXIzMTUuZ2EiLCJpYXQiOjE2ODAwMjIzMTEsImV4cCI6MTcxMTU3OTkxMX0.Uhm6gER92EWcgqbY-OE1GnEZnhkz5D48ilJN_RoGGI8"
     },
     "tests": []
+  },
+  {
+    "_id": "e216efd7-01a5-428b-a515-7afac209d765",
+    "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
+    "containerId": "5fab3e31-b649-4213-b980-66a0d9c2fff0",
+    "name": "GetComments",
+    "url": "http://localhost:3000/sales/1/comments",
+    "method": "GET",
+    "sortNum": 70000,
+    "created": "2023-03-28T18:14:32.033Z",
+    "modified": "2023-03-28T18:14:44.825Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]

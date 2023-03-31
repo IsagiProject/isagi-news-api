@@ -336,6 +336,34 @@
           }
         }
       }
+    },
+    "sales/{id}/comments": {
+      "get": {
+        "tags": ["sales"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id de la oferta",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Comentarios de la oferta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommentsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -560,6 +588,50 @@
           "user_id": {
             "type": "integer",
             "description": "Identificador del usuario que ha publicado la oferta (proximamente los datos)"
+          }
+        }
+      },
+      "CommentsResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "Codigo de estado de la respuesta"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Comment"
+            }
+          }
+        }
+      },
+      "Comment": {
+        "type": "object",
+        "properties": {
+          "comment_id": {
+            "type": "integer",
+            "description": "Identificador del comentario"
+          },
+          "text": {
+            "type": "string",
+            "description": "Texto del comentario"
+          },
+          "parent_id": {
+            "type": "integer",
+            "description": "Identificador del comentario padre"
+          },
+          "sale_id": {
+            "type": "integer",
+            "description": "Identificador de la oferta a la que pertenece el comentario"
+          },
+          "user_id": {
+            "type": "integer",
+            "description": "Identificador del usuario que ha publicado el comentario (proximamente los datos)"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "Fecha de creacion del comentario"
           }
         }
       }

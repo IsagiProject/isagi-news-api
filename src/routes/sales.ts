@@ -1,7 +1,11 @@
 import express, { Router } from 'express'
 import mssql from 'mssql'
 import validateJWT from '../middleware/validateJWT.js'
-import { getDBFormattedResponse } from '../utils/format.js'
+import {
+  getDBFormattedResponse,
+  getDefaultErrorMessage,
+  getSuccessfulFormatedResponse
+} from '../utils/format.js'
 import jwt from 'jsonwebtoken'
 import { UserJWT } from '../types/index.js'
 
@@ -39,6 +43,7 @@ router.get('/', async (req, res) => {
     }
     res.json(getDBFormattedResponse(200, result.recordset)).status(200).end()
   } catch (err) {
+    res.json(getDefaultErrorMessage()).status(500)
     console.log(err)
   }
 })
@@ -52,6 +57,21 @@ router.get('/:id', async (req, res) => {
     )
     res.json(getDBFormattedResponse(200, result.recordset)).status(200).end()
   } catch (err) {
+    res.json(getDefaultErrorMessage()).status(500)
+    console.log(err)
+  }
+})
+
+router.get('/:id/comments', async (req, res) => {
+  try {
+    const request = new mssql.Request()
+    request.input('id', mssql.Int, req.params.id)
+    const result = await request.query(
+      `select sc.*, concat('@', u.name) as username from sale_comments sc join users u on sc.user_id = u.user_id where sc.sale_id = @id`
+    )
+    res.json(getDBFormattedResponse(200, result.recordset)).status(200).end()
+  } catch (err) {
+    res.json(getDefaultErrorMessage()).status(500)
     console.log(err)
   }
 })
@@ -64,13 +84,17 @@ router.post('/:id/comments', async (req, res) => {
     request.input('sale_id', mssql.Int, req.params.id)
     request.input('user_id', mssql.Int, data.user_id)
     request.input('text', mssql.VarChar, req.body.comment)
-    const result = await request.query(
+    await request.query(
       'insert into sale_comments (sale_id, user_id, text, parent_id) values (@sale_id, @user_id, @text, null)'
     )
+    res
+      .json(getSuccessfulFormatedResponse(200, 'Comment added'))
+      .status(200)
+      .end()
   } catch (err) {
+    res.json(getDefaultErrorMessage()).status(500)
     console.log(err)
   }
-  res.status(200).send('ok').end()
 })
 
 export default router
