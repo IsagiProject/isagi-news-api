@@ -55,7 +55,7 @@ router.get('/:id', async (req, res) => {
     const result = await request.query(
       `select s.*, concat('@', u.name) as username from sales s join users u on s.user_id = u.user_id where s.sale_id = @id`
     )
-    res.json(getDBFormattedResponse(200, result.recordset)).status(200).end()
+    res.json(getDBFormattedResponse(200, result.recordset[0])).status(200).end()
   } catch (err) {
     res.json(getDefaultErrorMessage()).status(500)
     console.log(err)

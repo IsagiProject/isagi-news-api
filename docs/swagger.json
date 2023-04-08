@@ -346,7 +346,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SalesResponse"
+                  "$ref": "#/components/schemas/SalesUniqueResponse"
                 }
               }
             }
@@ -568,6 +568,23 @@
             "items": {
               "$ref": "#/components/schemas/Sale"
             }
+          }
+        }
+      },
+      "SalesUniqueResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "Codigo de estado de la respuesta"
+          },
+          "data": {
+            "type": "object",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Sale"
+              }
+            ]
           }
         }
       },
