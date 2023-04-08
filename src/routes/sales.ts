@@ -8,6 +8,7 @@ import {
 } from '../utils/format.js'
 import jwt from 'jsonwebtoken'
 import { UserJWT } from '../types/index.js'
+import { getChildComments } from '../utils/comments.js'
 
 const router: Router = express.Router()
 
@@ -67,8 +68,13 @@ router.get('/:id/comments', async (req, res) => {
     const request = new mssql.Request()
     request.input('id', mssql.Int, req.params.id)
     const result = await request.query(
-      `select sc.*, concat('@', u.name) as username from sale_comments sc join users u on sc.user_id = u.user_id where sc.sale_id = @id`
+      `select sc.*, concat('@', u.name) as username from sale_comments sc join users u on sc.user_id = u.user_id where sc.sale_id = @id and parent_id is null order by sc.created_at desc`
     )
+    for (let i = 0; i < result.recordset.length; i++) {
+      result.recordset[i].child_comments = await getChildComments(
+        result.recordset[i].comment_id
+      )
+    }
     res.json(getDBFormattedResponse(200, result.recordset)).status(200).end()
   } catch (err) {
     res.json(getDefaultErrorMessage()).status(500)
