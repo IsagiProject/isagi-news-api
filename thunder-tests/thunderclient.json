@@ -1,0 +1,239 @@
+[
+  {
+    "_id": "1c967e9a-5b17-459b-82b0-8ffa7165d0aa",
+    "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
+    "containerId": "307558ef-8bcb-4303-869d-250edcdcd4f3",
+    "name": "ByType",
+    "url": "http://localhost:3000/news/types/videojuegos",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2023-03-04T10:32:22.626Z",
+    "modified": "2023-03-07T18:27:38.374Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "cf55c9d0-bbc5-47a9-b1de-86222b2e54c8",
+    "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
+    "containerId": "5fab3e31-b649-4213-b980-66a0d9c2fff0",
+    "name": "GetAll",
+    "url": "http://localhost:3000/sales",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2023-03-05T19:38:41.211Z",
+    "modified": "2023-03-24T07:52:28.873Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "39b5b4bd-5cd0-47b4-a1d6-ac3aebd2bf94",
+    "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
+    "containerId": "307558ef-8bcb-4303-869d-250edcdcd4f3",
+    "name": "GetAll",
+    "url": "http://localhost:3000/news",
+    "method": "GET",
+    "sortNum": 20000,
+    "created": "2023-03-05T20:01:03.608Z",
+    "modified": "2023-03-07T18:27:39.494Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "0994de01-9c31-4d09-a2f5-74c7933947ec",
+    "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
+    "containerId": "b5e94a17-1071-4702-8917-21abb7adaa43",
+    "name": "GetNewsByAuthor",
+    "url": "http://localhost:3000/authors/1/news",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2023-03-05T20:02:05.745Z",
+    "modified": "2023-03-07T18:28:12.421Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "f3f39ef8-1e52-419c-9706-ff4ab2acebe5",
+    "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
+    "containerId": "5fab3e31-b649-4213-b980-66a0d9c2fff0",
+    "name": "GetById",
+    "url": "http://localhost:3000/sales/1",
+    "method": "GET",
+    "sortNum": 30000,
+    "created": "2023-03-09T18:14:10.262Z",
+    "modified": "2023-03-09T18:14:17.646Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "2d5c59f1-07c3-4562-8fff-4aecd3a06d82",
+    "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
+    "containerId": "3f85ebdd-e076-4abe-aa58-2f60a7632758",
+    "name": "Login",
+    "url": "http://localhost:3000/auth/login",
+    "method": "POST",
+    "sortNum": 40000,
+    "created": "2023-03-10T09:22:04.285Z",
+    "modified": "2023-03-28T16:51:51.869Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "formencoded",
+      "raw": "",
+      "form": [
+        {
+          "name": "email",
+          "value": "test@galder315.ga"
+        },
+        {
+          "name": "password",
+          "value": "test"
+        },
+        {
+          "name": "remember",
+          "value": "true"
+        }
+      ]
+    },
+    "tests": []
+  },
+  {
+    "_id": "9856d38f-95c3-4629-9df6-6d616afe56a4",
+    "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
+    "containerId": "307558ef-8bcb-4303-869d-250edcdcd4f3",
+    "name": "ById",
+    "url": "http://localhost:3000/news/57",
+    "method": "GET",
+    "sortNum": 30000,
+    "created": "2023-03-10T09:36:41.268Z",
+    "modified": "2023-03-10T09:37:03.827Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "bb76ee32-321c-4d7c-9c84-ab8b1e696f25",
+    "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
+    "containerId": "307558ef-8bcb-4303-869d-250edcdcd4f3",
+    "name": "GetTypes",
+    "url": "http://localhost:3000/news/types/",
+    "method": "GET",
+    "sortNum": 60000,
+    "created": "2023-03-10T11:21:09.317Z",
+    "modified": "2023-03-10T11:21:17.330Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "108ae8d6-8a70-4524-9379-18bb1244b3f7",
+    "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
+    "containerId": "3f85ebdd-e076-4abe-aa58-2f60a7632758",
+    "name": "Recover request",
+    "url": "http://localhost:3000/auth/request-recover",
+    "method": "POST",
+    "sortNum": 70000,
+    "created": "2023-03-12T14:50:05.189Z",
+    "modified": "2023-03-24T07:58:11.581Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "formencoded",
+      "raw": "",
+      "form": [
+        {
+          "name": "email",
+          "value": "test@galder315.ga"
+        }
+      ]
+    },
+    "tests": []
+  },
+  {
+    "_id": "cb78bac1-21c0-4c14-8981-e76493e36d75",
+    "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
+    "containerId": "3f85ebdd-e076-4abe-aa58-2f60a7632758",
+    "name": "Recover",
+    "url": "http://localhost:3000/auth/recover",
+    "method": "POST",
+    "sortNum": 90000,
+    "created": "2023-03-17T07:48:57.639Z",
+    "modified": "2023-03-24T07:59:30.717Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "formencoded",
+      "raw": "",
+      "form": [
+        {
+          "name": "email",
+          "value": "test@galder315.ga"
+        },
+        {
+          "name": "token",
+          "value": "2ed34a387e5f5c5c95fa584eabe75723ffdd877cdc7a7e0257236efe0e966c7e"
+        },
+        {
+          "name": "password",
+          "value": "test"
+        }
+      ]
+    },
+    "tests": []
+  },
+  {
+    "_id": "12335de5-6cb7-4739-af3d-0b40d6d3ff8f",
+    "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
+    "containerId": "8c588c50-7df5-45a4-b215-a4dea9fd958c",
+    "name": "GetAll",
+    "url": "http://localhost:3000/faq",
+    "method": "GET",
+    "sortNum": 100000,
+    "created": "2023-03-24T09:58:47.691Z",
+    "modified": "2023-03-24T10:00:41.901Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "23d739bf-057b-4c5e-9cb3-738cb05b4c9f",
+    "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
+    "containerId": "5fab3e31-b649-4213-b980-66a0d9c2fff0",
+    "name": "AddComment",
+    "url": "http://localhost:3000/sales/1/comments",
+    "method": "POST",
+    "sortNum": 110000,
+    "created": "2023-03-28T17:57:31.856Z",
+    "modified": "2023-03-31T09:05:46.498Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"comment\": \"test❤\"\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0LCJuYW1lIjoiVEVTVCIsImVtYWlsIjoidGVzdEBnYWxkZXIzMTUuZ2EiLCJpYXQiOjE2ODAwMjIzMTEsImV4cCI6MTcxMTU3OTkxMX0.Uhm6gER92EWcgqbY-OE1GnEZnhkz5D48ilJN_RoGGI8"
+    },
+    "tests": []
+  },
+  {
+    "_id": "e216efd7-01a5-428b-a515-7afac209d765",
+    "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
+    "containerId": "5fab3e31-b649-4213-b980-66a0d9c2fff0",
+    "name": "GetComments",
+    "url": "http://localhost:3000/sales/1/comments",
+    "method": "GET",
+    "sortNum": 70000,
+    "created": "2023-03-28T18:14:32.033Z",
+    "modified": "2023-03-28T18:14:44.825Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  }
+]

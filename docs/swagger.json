@@ -1,0 +1,706 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "ISAGI NEWS API",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://isagiapi.galder315.ga/"
+    }
+  ],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "tags": ["auth"],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/NewUserRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Usuario registrado correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos no validos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Usuario ya registrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": ["auth"],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Usuario logueado correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Credenciales no validas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/request-recover": {
+      "post": {
+        "tags": ["auth"],
+        "description": "Solicita el envio de un correo electronico para recuperar la contraseña",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/RecoverRequestRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Correo enviado correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos no validos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuario no encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/recover": {
+      "post": {
+        "tags": ["auth"],
+        "description": "Recupera la contraseña de un usuario",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/RecoverRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Contraseña recuperada correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos no validos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuario no encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/authors/{id}/news": {
+      "get": {
+        "tags": ["authors"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id del autor",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de noticias del autor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/faq": {
+      "get": {
+        "tags": ["faq"],
+        "responses": {
+          "200": {
+            "description": "Lista de preguntas frecuentes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaqResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/news": {
+      "get": {
+        "tags": ["news"],
+        "responses": {
+          "200": {
+            "description": "Lista de noticias",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/news/types": {
+      "get": {
+        "tags": ["news"],
+        "responses": {
+          "200": {
+            "description": "Lista de tipos/categorias de noticias",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewsTypeResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/news/types/{type}": {
+      "get": {
+        "tags": ["news"],
+        "parameters": [
+          {
+            "name": "type",
+            "in": "path",
+            "description": "Tipo/categoria de noticia",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de noticias",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sales": {
+      "get": {
+        "tags": ["sales"],
+        "parameters": [
+          {
+            "name": "order",
+            "in": "query",
+            "description": "Orden de la lista",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["price", "title", "discount"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de ofertas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SalesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sales/{id}": {
+      "get": {
+        "tags": ["sales"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id de la oferta",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Oferta con el id especificado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SalesUniqueResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sales/{id}/comments": {
+      "get": {
+        "tags": ["sales"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id de la oferta",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Comentarios de la oferta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommentsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "MessageResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "Codigo de estado de la respuesta"
+          },
+          "message": {
+            "type": "string",
+            "description": "Mensaje de respuesta"
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "Codigo de estado de la respuesta"
+          },
+          "error": {
+            "type": "string",
+            "description": "Mensaje de respuesta"
+          }
+        }
+      },
+      "NewUserRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Email del usuario"
+          },
+          "password": {
+            "type": "string",
+            "description": "Contraseña del usuario"
+          }
+        },
+        "required": ["email", "password"]
+      },
+      "LoginRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Email del usuario"
+          },
+          "password": {
+            "type": "string",
+            "description": "Contraseña del usuario"
+          },
+          "remember": {
+            "type": "boolean",
+            "description": "Recordar usuario"
+          }
+        },
+        "required": ["email", "password", "remember"]
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "Codigo de estado de la respuesta"
+          },
+          "token": {
+            "type": "string",
+            "description": "Token de autenticacion"
+          }
+        }
+      },
+      "RecoverRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Email del usuario"
+          },
+          "token": {
+            "type": "string",
+            "description": "Token de recuperacion de contraseña"
+          },
+          "password": {
+            "type": "string",
+            "description": "Contraseña del usuario"
+          }
+        },
+        "required": ["email", "token", "password"]
+      },
+      "RecoverRequestRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Email del usuario"
+          }
+        },
+        "required": ["email"]
+      },
+      "NewsResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "Codigo de estado de la respuesta"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/News"
+            }
+          }
+        }
+      },
+      "News": {
+        "type": "object",
+        "properties": {
+          "news_id": {
+            "type": "integer",
+            "description": "Identificador de la noticia"
+          },
+          "title": {
+            "type": "string",
+            "description": "Titulo de la noticia"
+          },
+          "text": {
+            "type": "string",
+            "description": "Texto de la noticia"
+          },
+          "author_id": {
+            "type": "integer",
+            "description": "Identificador del autor (proximamente los datos)"
+          },
+          "photo": {
+            "type": "string",
+            "description": "Enlace a la foto de la noticia"
+          }
+        }
+      },
+      "NewsTypeResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "Codigo de estado de la respuesta"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewsType"
+            }
+          }
+        }
+      },
+      "NewsType": {
+        "type": "object",
+        "properties": {
+          "type_id": {
+            "type": "integer",
+            "description": "Identificador del tipo/categoria de noticia"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nombre del tipo/categoria de noticia"
+          },
+          "image": {
+            "type": "string",
+            "description": "Enlace a la imagen del tipo/categoria de noticia"
+          }
+        }
+      },
+      "SalesResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "Codigo de estado de la respuesta"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Sale"
+            }
+          }
+        }
+      },
+      "SalesUniqueResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "Codigo de estado de la respuesta"
+          },
+          "data": {
+            "type": "object",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Sale"
+              }
+            ]
+          }
+        }
+      },
+      "Sale": {
+        "type": "object",
+        "properties": {
+          "sale_id": {
+            "type": "integer",
+            "description": "Identificador de la oferta"
+          },
+          "title": {
+            "type": "string",
+            "description": "Titulo de la oferta"
+          },
+          "description": {
+            "type": "string",
+            "description": "Descripcion de la oferta"
+          },
+          "image": {
+            "type": "string",
+            "description": "Enlace a la imagen de la oferta"
+          },
+          "shop": {
+            "type": "string",
+            "description": "Tienda de la oferta"
+          },
+          "old_price": {
+            "type": "string",
+            "description": "Precio antiguo de la oferta"
+          },
+          "new_price": {
+            "type": "string",
+            "description": "Precio nuevo de la oferta"
+          },
+          "user_id": {
+            "type": "integer",
+            "description": "Identificador del usuario que ha publicado la oferta (proximamente los datos)"
+          }
+        }
+      },
+      "CommentsResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "Codigo de estado de la respuesta"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Comment"
+            }
+          }
+        }
+      },
+      "Comment": {
+        "type": "object",
+        "properties": {
+          "comment_id": {
+            "type": "integer",
+            "description": "Identificador del comentario"
+          },
+          "text": {
+            "type": "string",
+            "description": "Texto del comentario"
+          },
+          "parent_id": {
+            "type": "integer",
+            "description": "Identificador del comentario padre"
+          },
+          "sale_id": {
+            "type": "integer",
+            "description": "Identificador de la oferta a la que pertenece el comentario"
+          },
+          "user_id": {
+            "type": "integer",
+            "description": "Identificador del usuario que ha publicado el comentario (proximamente los datos)"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "Fecha de creacion del comentario"
+          },
+          "child_comments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Comment"
+            },
+            "example": [
+              {
+                "comment_id": 1,
+                "text": "Comentario de prueba",
+                "parent_id": 0,
+                "sale_id": 1,
+                "user_id": 1,
+                "created_at": "2023-03-01 00:00:00",
+                "child_comments": []
+              }
+            ]
+          }
+        }
+      },
+      "FaqResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "Codigo de estado de la respuesta"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Faq"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,45 @@
+[
+  {
+    "_id": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
+    "colName": "ISAGI NEWS",
+    "created": "2023-03-07T18:27:31.688Z",
+    "sortNum": 50000,
+    "folders": [
+      {
+        "_id": "307558ef-8bcb-4303-869d-250edcdcd4f3",
+        "name": "News",
+        "containerId": "",
+        "created": "2023-03-07T18:27:35.597Z",
+        "sortNum": 10000
+      },
+      {
+        "_id": "3f85ebdd-e076-4abe-aa58-2f60a7632758",
+        "name": "Auth",
+        "containerId": "",
+        "created": "2023-03-07T18:27:42.782Z",
+        "sortNum": 20000
+      },
+      {
+        "_id": "5fab3e31-b649-4213-b980-66a0d9c2fff0",
+        "name": "Sales",
+        "containerId": "",
+        "created": "2023-03-07T18:27:54.051Z",
+        "sortNum": 30000
+      },
+      {
+        "_id": "b5e94a17-1071-4702-8917-21abb7adaa43",
+        "name": "Authors",
+        "containerId": "",
+        "created": "2023-03-07T18:28:10.971Z",
+        "sortNum": 40000
+      },
+      {
+        "_id": "8c588c50-7df5-45a4-b215-a4dea9fd958c",
+        "name": "FAQ",
+        "containerId": "",
+        "created": "2023-03-24T09:58:36.631Z",
+        "sortNum": 50000
+      }
+    ]
+  }
+]
