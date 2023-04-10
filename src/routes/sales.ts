@@ -88,10 +88,11 @@ router.post('/:id/comments', async (req, res) => {
     const data = jwt.decode(token!) as UserJWT
     const request = new mssql.Request()
     request.input('sale_id', mssql.Int, req.params.id)
+    request.input('parent_id', mssql.Int, req.body.parentId)
     request.input('user_id', mssql.Int, data.user_id)
     request.input('text', mssql.NVarChar, req.body.comment)
     await request.query(
-      'insert into sale_comments (sale_id, user_id, text, parent_id) values (@sale_id, @user_id, @text, null)'
+      'insert into sale_comments (sale_id, user_id, text, parent_id) values (@sale_id, @user_id, @text, @parent_id)'
     )
     res
       .json(getSuccessfulFormatedResponse(200, 'Comment added'))
