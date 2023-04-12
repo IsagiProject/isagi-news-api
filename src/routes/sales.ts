@@ -97,7 +97,7 @@ router.post('/:id/comments', async (req, res) => {
     res
       .json(
         getDBFormattedResponse(200, {
-          id: result.recordset[0].comment_id
+          commentId: result.recordset[0].comment_id
         })
       )
       .status(200)
