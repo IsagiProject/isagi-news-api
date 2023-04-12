@@ -91,11 +91,15 @@ router.post('/:id/comments', async (req, res) => {
     request.input('parent_id', mssql.Int, req.body.parentId)
     request.input('user_id', mssql.Int, data.user_id)
     request.input('text', mssql.NVarChar, req.body.comment)
-    await request.query(
-      'insert into sale_comments (sale_id, user_id, text, parent_id) values (@sale_id, @user_id, @text, @parent_id)'
+    const result = await request.query(
+      'insert into sale_comments (sale_id, user_id, text, parent_id) OUTPUT inserted.comment_id values (@sale_id, @user_id, @text, @parent_id)'
     )
     res
-      .json(getSuccessfulFormatedResponse(200, 'Comment added'))
+      .json(
+        getDBFormattedResponse(200, {
+          id: result.recordset[0].comment_id
+        })
+      )
       .status(200)
       .end()
   } catch (err) {

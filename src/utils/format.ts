@@ -26,7 +26,7 @@ export function getErrorFormattedResponse(
   }
 }
 
-export function getSuccessfulFormatedResponse(status: number, message: string) {
+export function getSuccessfulFormatedResponse(status: number, message: object) {
   return {
     status,
     message
