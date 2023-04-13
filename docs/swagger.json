@@ -324,6 +324,57 @@
             }
           }
         }
+      },
+      "post": {
+        "tags": ["sales"],
+        "description": "Crea una oferta",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SalesCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Oferta creada correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SalesCreateResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos no validos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No autorizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/sales/{id}": {
@@ -383,6 +434,7 @@
       },
       "post": {
         "tags": ["sales"],
+        "security": [{ "BearerAuth": [] }],
         "parameters": [
           {
             "name": "id",
@@ -393,12 +445,12 @@
               "type": "integer"
             }
           }
-        ], 
+        ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewCommentRequest"
+                "$ref": "#/components/schemas/CommentCreateRequest"
               }
             }
           },
@@ -411,6 +463,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CommentCreatedResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos no validos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -736,8 +798,8 @@
             }
           }
         }
-      }, 
-      "NewCommentRequest": {
+      },
+      "CommentCreateRequest": {
         "type": "object",
         "properties": {
           "text": {
@@ -747,34 +809,84 @@
           "parent_id": {
             "type": "integer",
             "description": "Identificador del comentario padre"
-          },
-          "sale_id": {
-            "type": "integer",
-            "description": "Identificador de la oferta a la que pertenece el comentario"
-          }, 
-          "token": {
-            "type": "string", 
-            "description": "Token de usuario"
           }
         }
       },
       "CommentCreatedResponse": {
-        "type": "object", 
+        "type": "object",
         "properties": {
           "status": {
-            "type": "integer", 
+            "type": "integer",
             "description": "Codigo de estado de la respuesta"
-          }, 
+          },
           "data": {
-            "type": "object", 
+            "type": "object",
             "properties": {
               "comment_id": {
-                "type": "integer", 
+                "type": "integer",
                 "description": "Identificador del comentario"
               }
             }
           }
         }
+      },
+      "SalesCreateRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Titulo de la oferta"
+          },
+          "description": {
+            "type": "string",
+            "description": "Descripcion de la oferta"
+          },
+          "image": {
+            "type": "string",
+            "description": "Enlace a la imagen de la oferta"
+          },
+          "shop": {
+            "type": "string",
+            "description": "Tienda de la oferta"
+          },
+          "link": {
+            "type": "string",
+            "description": "Enlace a la oferta"
+          },
+          "old_price": {
+            "type": "number",
+            "description": "Precio antiguo de la oferta"
+          },
+          "new_price": {
+            "type": "number",
+            "description": "Precio nuevo de la oferta"
+          }
+        }
+      },
+      "SalesCreateResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "Codigo de estado de la respuesta"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "sale_id": {
+                "type": "integer",
+                "description": "Identificador de la oferta"
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }

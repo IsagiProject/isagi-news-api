@@ -9,6 +9,7 @@ import {
 import jwt from 'jsonwebtoken'
 import { UserJWT } from '../types/index.js'
 import { getChildComments } from '../utils/comments.js'
+import { getUserIdFromToken } from '../utils/user.js'
 
 const router: Router = express.Router()
 
@@ -43,6 +44,31 @@ router.get('/', async (req, res) => {
       )
     }
     res.json(getDBFormattedResponse(200, result.recordset)).status(200).end()
+  } catch (err) {
+    res.json(getDefaultErrorMessage()).status(500).end()
+    console.log(err)
+  }
+})
+
+router.post('/', async (req, res) => {
+  try {
+    const userId = getUserIdFromToken(req)
+    const request = new mssql.Request()
+    request.input('title', mssql.VarChar, req.body.title)
+    request.input('description', mssql.VarChar, req.body.description)
+    request.input('image', mssql.VarChar, req.body.image)
+    request.input('shop', mssql.VarChar, req.body.shop)
+    request.input('link', mssql.VarChar, req.body.link)
+    request.input('old_price', mssql.Float, req.body.old_price)
+    request.input('new_price', mssql.Float, req.body.new_price)
+    request.input('user_id', mssql.Int, userId)
+    const result = await request.query(
+      `insert into sales (title, description, image, shop, link, old_price, new_price, user_id) values (@title, @description, @image, @shop, @link, @old_price, @new_price, @user_id); select @@identity as sale_id`
+    )
+    res
+      .json(getObjectFormattedResponse(200, { sale_id: result.recordset[0] }))
+      .status(200)
+      .end()
   } catch (err) {
     res.json(getDefaultErrorMessage()).status(500).end()
     console.log(err)
