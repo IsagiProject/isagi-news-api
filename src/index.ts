@@ -50,6 +50,9 @@ app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
 
+app.get('/', (req, res) => {
+  res.send('ISAGI API IS UP!')
+})
 app.use('/auth', authentication)
 app.use('/news', news)
 app.use('/sales', sales)
