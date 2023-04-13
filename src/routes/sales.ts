@@ -44,7 +44,7 @@ router.get('/', async (req, res) => {
     }
     res.json(getDBFormattedResponse(200, result.recordset)).status(200).end()
   } catch (err) {
-    res.json(getDefaultErrorMessage()).status(500)
+    res.json(getDefaultErrorMessage()).status(500).end()
     console.log(err)
   }
 })
@@ -58,7 +58,7 @@ router.get('/:id', async (req, res) => {
     )
     res.json(getDBFormattedResponse(200, result.recordset[0])).status(200).end()
   } catch (err) {
-    res.json(getDefaultErrorMessage()).status(500)
+    res.json(getDefaultErrorMessage()).status(500).end()
     console.log(err)
   }
 })
@@ -77,7 +77,7 @@ router.get('/:id/comments', async (req, res) => {
     }
     res.json(getDBFormattedResponse(200, result.recordset)).status(200).end()
   } catch (err) {
-    res.json(getDefaultErrorMessage()).status(500)
+    res.json(getDefaultErrorMessage()).status(500).end()
     console.log(err)
   }
 })
@@ -103,7 +103,7 @@ router.post('/:id/comments', async (req, res) => {
       .status(200)
       .end()
   } catch (err) {
-    res.json(getDefaultErrorMessage()).status(500)
+    res.json(getDefaultErrorMessage()).status(500).end()
     console.log(err)
   }
 })
