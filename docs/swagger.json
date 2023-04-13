@@ -380,6 +380,42 @@
             }
           }
         }
+      },
+      "post": {
+        "tags": ["sales"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id de la oferta",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ], 
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewCommentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Comentario creado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommentCreatedResponse"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
@@ -697,6 +733,45 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Faq"
+            }
+          }
+        }
+      }, 
+      "NewCommentRequest": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "Texto del comentario"
+          },
+          "parent_id": {
+            "type": "integer",
+            "description": "Identificador del comentario padre"
+          },
+          "sale_id": {
+            "type": "integer",
+            "description": "Identificador de la oferta a la que pertenece el comentario"
+          }, 
+          "token": {
+            "type": "string", 
+            "description": "Token de usuario"
+          }
+        }
+      },
+      "CommentCreatedResponse": {
+        "type": "object", 
+        "properties": {
+          "status": {
+            "type": "integer", 
+            "description": "Codigo de estado de la respuesta"
+          }, 
+          "data": {
+            "type": "object", 
+            "properties": {
+              "comment_id": {
+                "type": "integer", 
+                "description": "Identificador del comentario"
+              }
             }
           }
         }

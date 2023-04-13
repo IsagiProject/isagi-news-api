@@ -26,7 +26,7 @@ export function getErrorFormattedResponse(
   }
 }
 
-export function getSuccessfulFormatedResponse(status: number, message: object) {
+export function getSuccessfulFormatedResponse(status: number, message: string) {
   return {
     status,
     message
@@ -37,5 +37,12 @@ export function getDefaultErrorMessage() {
   return {
     status: 500,
     error: 'Something went wrong'
+  }
+}
+
+export function getObjectFormattedResponse(status: number, data: object) {
+  return {
+    status,
+    data
   }
 }

@@ -4,7 +4,7 @@ import validateJWT from '../middleware/validateJWT.js'
 import {
   getDBFormattedResponse,
   getDefaultErrorMessage,
-  getSuccessfulFormatedResponse
+  getObjectFormattedResponse
 } from '../utils/format.js'
 import jwt from 'jsonwebtoken'
 import { UserJWT } from '../types/index.js'
@@ -96,7 +96,7 @@ router.post('/:id/comments', async (req, res) => {
     )
     res
       .json(
-        getDBFormattedResponse(200, {
+        getObjectFormattedResponse(200, {
           commentId: result.recordset[0].comment_id
         })
       )
