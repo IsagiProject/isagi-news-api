@@ -13,4 +13,6 @@ export type UserJWT = {
   user_id: number
   name: string
   email: string
+  iat: number
+  exp: number
 }

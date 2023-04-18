@@ -78,7 +78,7 @@
     "method": "POST",
     "sortNum": 40000,
     "created": "2023-03-10T09:22:04.285Z",
-    "modified": "2023-03-28T16:51:51.869Z",
+    "modified": "2023-04-18T16:05:20.838Z",
     "headers": [],
     "params": [],
     "body": {
@@ -87,11 +87,11 @@
       "form": [
         {
           "name": "email",
-          "value": "test@galder315.ga"
+          "value": "test@test.test"
         },
         {
           "name": "password",
-          "value": "test"
+          "value": "test12345"
         },
         {
           "name": "remember",
@@ -234,6 +234,25 @@
     "modified": "2023-03-28T18:14:44.825Z",
     "headers": [],
     "params": [],
+    "tests": []
+  },
+  {
+    "_id": "fbd8ba1f-b87a-4b41-a60e-d8e99fac2c82",
+    "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
+    "containerId": "3f85ebdd-e076-4abe-aa58-2f60a7632758",
+    "name": "ValidateToken",
+    "url": "http://localhost:3000/auth/token/validate",
+    "method": "POST",
+    "sortNum": 120000,
+    "created": "2023-04-18T16:00:53.540Z",
+    "modified": "2023-04-18T16:19:10.495Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJuYW1lIjpudWxsLCJlbWFpbCI6InRlc3RAdGVzdC50ZXN0IiwiaWF0IjoxNjgxODMzOTIxLCJleHAiOjE3MTMzOTE1MjF9.OmRMkmn_eLAzDPiQID1n20tXnzp8_Qt8sTP6rKqcIEY\"\n}",
+      "form": []
+    },
     "tests": []
   }
 ]

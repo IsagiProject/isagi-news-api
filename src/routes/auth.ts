@@ -9,6 +9,7 @@ import {
   getErrorFormattedResponse,
   getSuccessfulFormatedResponse
 } from '../utils/format.js'
+import { UserJWT } from '../types/index.js'
 
 const router: Router = express.Router()
 
@@ -194,6 +195,20 @@ router.post('/recover', async (req, res) => {
   } catch (err) {
     console.log(err)
     res.json(getDefaultErrorMessage()).status(500).end()
+  }
+})
+
+router.post('/token/validate', async (req, res) => {
+  const { token } = req.body
+  try {
+    //Se comprueba que el token vaya a ser valido al menos durante 24 horas
+    const tomorrow = new Date().getTime() / 1000 + 60 * 60 * 24
+    jwt.verify(token, process.env.JWT_SECRET_KEY!, {
+      clockTimestamp: tomorrow
+    }) as UserJWT
+    res.json({ status: 200, isTokenValid: true }).status(200).end()
+  } catch (err) {
+    res.json({ status: 200, isTokenValid: false }).status(200).end()
   }
 })
 
