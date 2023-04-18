@@ -254,5 +254,24 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "e95569a1-3add-47a3-9c15-cc95a5d963ac",
+    "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
+    "containerId": "3f85ebdd-e076-4abe-aa58-2f60a7632758",
+    "name": "Register",
+    "url": "https://isagiapi.galder315.ga/auth/register",
+    "method": "POST",
+    "sortNum": 130000,
+    "created": "2023-04-18T16:34:53.973Z",
+    "modified": "2023-04-18T16:36:19.912Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"email\": \"test1@galder315.ga\", \n  \"password\": \"test1@galder315.ga\"\n}",
+      "form": []
+    },
+    "tests": []
   }
 ]
