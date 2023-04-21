@@ -28,6 +28,7 @@ export function sendRecoverMail(mail: string, recoverToken: string) {
     .replace('{{email}}', mail)
     .replace('{{token}}', recoverToken)
     .replace('{{url}}', process.env.WEB_URL as string)
+    .replace('{{recoverPath}}', process.env.PASSWORD_RECOVER_PATH as string)  
 
   transporter.sendMail(recoverMail, function (err, info) {
     if (err) throw err
