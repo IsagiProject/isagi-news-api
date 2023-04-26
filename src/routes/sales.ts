@@ -107,7 +107,7 @@ router.get('/:id/comments', async (req, res) => {
       )
     }
     const responseJson = getDBFormattedResponse(200, result.recordset)
-    responseJson.data.total = totalResult.recordset[0].total
+    responseJson.total = totalResult.recordset[0].total
     res.json(responseJson).status(200).end()
   } catch (err) {
     res.json(getDefaultErrorMessage()).status(500).end()
