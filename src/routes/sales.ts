@@ -23,24 +23,24 @@ router.get('/', async (req, res) => {
     const request = new mssql.Request()
     if (order === 'date') {
       result = await request.query(
-        `select s.*, concat('@', u.name) as username from sales s join users u on s.user_id = u.user_id  order by created_at`
+        `select s.*, concat('@', u.username) as username from sales s join users u on s.user_id = u.user_id  order by created_at`
       )
     } else if (order === 'price') {
       result = await request.query(
-        `select s.*, concat('@', u.name) as username from sales s join users u on s.user_id = u.user_id  order by new_price`
+        `select s.*, concat('@', u.username) as username from sales s join users u on s.user_id = u.user_id  order by new_price`
       )
     } else if (order === 'title') {
       result = await request.query(
-        `select s.*, concat('@', u.name) as username from sales s join users u on s.user_id = u.user_id order by title`
+        `select s.*, concat('@', u.username) as username from sales s join users u on s.user_id = u.user_id order by title`
       )
     } else if (order === 'discount') {
       result = await request.query(
-        `select s.*, concat('@', u.name) as username from sales s join users u on s.user_id = u.user_id
+        `select s.*, concat('@', u.username) as username from sales s join users u on s.user_id = u.user_id
      order by (new_price / old_price)`
       )
     } else {
       result = await request.query(
-        `select s.*, concat('@', u.name) as username from sales s join users u on s.user_id = u.user_id order by sale_id`
+        `select s.*, concat('@', u.username) as username from sales s join users u on s.user_id = u.user_id order by sale_id`
       )
     }
     res.json(getDBFormattedResponse(200, result.recordset)).status(200).end()
@@ -80,7 +80,7 @@ router.get('/:id', async (req, res) => {
     const request = new mssql.Request()
     request.input('id', mssql.Int, req.params.id)
     const result = await request.query(
-      `select s.*, concat('@', u.name) as username from sales s join users u on s.user_id = u.user_id where s.sale_id = @id`
+      `select s.*, concat('@', u.username) as username from sales s join users u on s.user_id = u.user_id where s.sale_id = @id`
     )
     res.json(getDBFormattedResponse(200, result.recordset[0])).status(200).end()
   } catch (err) {
@@ -94,7 +94,7 @@ router.get('/:id/comments', async (req, res) => {
     const request = new mssql.Request()
     request.input('id', mssql.Int, req.params.id)
     const result = await request.query(
-      `select sc.*, concat('@', u.name) as username from sale_comments sc join users u on sc.user_id = u.user_id where sc.sale_id = @id and parent_id is null order by sc.created_at desc`
+      `select sc.*, concat('@', u.username) as username from sale_comments sc join users u on sc.user_id = u.user_id where sc.sale_id = @id and parent_id is null order by sc.created_at desc`
     )
     for (let i = 0; i < result.recordset.length; i++) {
       result.recordset[i].child_comments = await getChildComments(

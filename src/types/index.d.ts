@@ -11,7 +11,7 @@ export type ErrorRosponse = {
 
 export type UserJWT = {
   user_id: number
-  name: string
+  username: string
   email: string
   iat: number
   exp: number

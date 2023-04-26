@@ -14,7 +14,7 @@ import { UserJWT } from '../types/index.js'
 const router: Router = express.Router()
 
 router.post('/register', async (req, res) => {
-  const { email, password } = req.body
+  const { user, email, password } = req.body
   const regex = new RegExp(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/)
   try {
     const request = new mssql.Request()
@@ -24,7 +24,7 @@ router.post('/register', async (req, res) => {
       `select * from users where email = @email`
     )
 
-    if (!email || !password) {
+    if (!email || !password || !user) {
       res.json({ status: 400, error: 'Invalid data' }).status(400).end()
       return
     }
@@ -49,9 +49,10 @@ router.post('/register', async (req, res) => {
     const insertRequest = new mssql.Request()
     insertRequest.input('email', mssql.VarChar, email)
     insertRequest.input('password', mssql.VarChar, hash)
+    insertRequest.input('username', mssql.VarChar, user)
 
     await insertRequest.query(
-      'insert into users (email, password) values (@email, @password) '
+      'insert into users (username, email, password) values (@username, @email, @password) '
     )
     res
       .json(getSuccessfulFormatedResponse(200, 'User created'))
@@ -74,9 +75,9 @@ router.post('/login', async (req, res) => {
       `select * from users where email = @email and password = @password`
     )
     if (result.recordset.length > 0) {
-      const { user_id, name } = result.recordset[0]
+      const { user_id, username } = result.recordset[0]
       const token = jwt.sign(
-        { user_id, name, email, remember },
+        { user_id, username, email, remember },
         process.env.JWT_SECRET_KEY!,
         {
           expiresIn: remember ? '1y' : '7d'
