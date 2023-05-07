@@ -7,6 +7,7 @@ import sales from './routes/sales.js'
 import authors from './routes/authors.js'
 import account from './routes/account.js'
 import faq from './routes/faq.js'
+import media from './routes/media.js'
 import swaggerUi from 'swagger-ui-express'
 import fs from 'fs'
 
@@ -39,7 +40,7 @@ app.use(express.urlencoded({ extended: true }))
 app.disable('x-powered-by')
 
 app.use((req, res, next) => {
-  req.setEncoding('utf8')
+  //req.setEncoding('utf8')
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Headers', '*')
   next()
@@ -59,6 +60,7 @@ app.use('/sales', sales)
 app.use('/authors', authors)
 app.use('/account', account)
 app.use('/faq', faq)
+app.use('/media', media)
 
 app.use('/docs', swaggerUi.serve)
 app.get('/docs', swaggerUi.setup(swaggerDocument))

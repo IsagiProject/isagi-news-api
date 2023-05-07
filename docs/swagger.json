@@ -6,7 +6,7 @@
   },
   "servers": [
     {
-      "url": "https://isagiapi.galder315.ga/"
+      "url": "http://localhost:3000/"
     }
   ],
   "paths": {
@@ -230,6 +230,92 @@
                   "$ref": "#/components/schemas/FaqResponse"
                 }
               }
+            }
+          }
+        }
+      }
+    },
+    "/media/images": {
+      "post": {
+        "tags": ["media"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/ImagesUploadRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Lista de imagenes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImagesUploadResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos no validos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No autorizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/media/images/{name}": {
+      "get": {
+        "tags": ["media"],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "Nombre de la imagen",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Imagen",
+            "content": {
+              "image/png": {}
             }
           }
         }
@@ -794,7 +880,7 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Faq"
+              "$ref": "#/components/schemas/FaqResponse"
             }
           }
         }
@@ -876,6 +962,38 @@
               "sale_id": {
                 "type": "integer",
                 "description": "Identificador de la oferta"
+              }
+            }
+          }
+        }
+      },
+      "ImagesUploadRequest": {
+        "type": "object",
+        "properties": {
+          "image": {
+            "type": "string",
+            "format": "binary",
+            "description": "Imagen"
+          }
+        },
+        "required": ["image"]
+      },
+      "ImagesUploadResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "Codigo de estado de la respuesta"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "images": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "description": "Enlace a la imagen subida"
+                }
               }
             }
           }
