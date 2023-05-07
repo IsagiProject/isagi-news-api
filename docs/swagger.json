@@ -240,7 +240,7 @@
         "tags": ["media"],
         "security": [
           {
-            "bearerAuth": []
+            "BearerAuth": []
           }
         ],
         "requestBody": {
