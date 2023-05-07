@@ -273,5 +273,34 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "aba9a011-1eb8-4572-9f1d-9e013a0c3a36",
+    "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
+    "containerId": "20332251-e148-4cb0-a058-1820e69e78bb",
+    "name": "Images",
+    "url": "http://localhost:3000/media/images",
+    "method": "POST",
+    "sortNum": 140000,
+    "created": "2023-05-07T07:43:22.159Z",
+    "modified": "2023-05-07T08:15:24.448Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "formdata",
+      "raw": "",
+      "form": [],
+      "files": [
+        {
+          "name": "image",
+          "value": "c:\\Users\\Galder\\Documents\\Euro Truck Simulator 2\\screenshot\\ets2_00010.png"
+        }
+      ]
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJ1c2VybmFtZSI6IkEiLCJlbWFpbCI6InRlc3RAdGVzdC50ZXN0IiwicmVtZW1iZXIiOiJ0cnVlIiwiaWF0IjoxNjgzNDQ2MTQyLCJleHAiOjE3MTUwMDM3NDJ9.-oKRNQZcwluoRappP0jB_GTWQmt9qgyDrJrbWMl5JYc"
+    },
+    "tests": []
   }
 ]
