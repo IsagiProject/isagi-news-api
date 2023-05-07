@@ -8,6 +8,8 @@ const router: Router = express.Router()
 
 router.post('*', validateJWT)
 
+router.use('/images', express.static('uploads/images'))
+
 const imageStorage = multer.diskStorage({
   destination: function (req, file, cb) {
     const path = 'uploads/images/'
@@ -25,7 +27,7 @@ const saveImages = multer({
 
 const uploadImages = saveImages.array('image')
 
-router.post('/images', async (req, res) => {
+router.post('/images', (req, res) => {
   uploadImages(req, res, function (err) {
     if (!req.files) {
       res
@@ -47,7 +49,10 @@ router.post('/images', async (req, res) => {
       .json(
         getObjectFormattedResponse(200, {
           images: files.map(
-            (file) => `${process.env.API_URL}/${file.path.replace(/\\/g, '/')}`
+            (file) =>
+              `${process.env.API_URL}/${file.path
+                .replace(/\\/g, '/')
+                .replace('uploads', 'media')}`
           )
         })
       )

@@ -283,7 +283,7 @@
     "method": "POST",
     "sortNum": 140000,
     "created": "2023-05-07T07:43:22.159Z",
-    "modified": "2023-05-07T08:15:24.448Z",
+    "modified": "2023-05-07T08:53:52.326Z",
     "headers": [],
     "params": [],
     "body": {
@@ -293,7 +293,7 @@
       "files": [
         {
           "name": "image",
-          "value": "c:\\Users\\Galder\\Documents\\Euro Truck Simulator 2\\screenshot\\ets2_00010.png"
+          "value": "..\\..\\..\\..\\Descargas\\ets2_00010.png"
         }
       ]
     },

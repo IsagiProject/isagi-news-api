@@ -6,7 +6,7 @@
   },
   "servers": [
     {
-      "url": "https://isagiapi.galder315.ga/"
+      "url": "http://localhost:3000/"
     }
   ],
   "paths": {
@@ -292,6 +292,30 @@
                   "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
+            }
+          }
+        }
+      }
+    },
+    "/media/images/{name}": {
+      "get": {
+        "tags": ["media"],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "Nombre de la imagen",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Imagen",
+            "content": {
+              "image/png": {}
             }
           }
         }

@@ -40,7 +40,7 @@ app.use(express.urlencoded({ extended: true }))
 app.disable('x-powered-by')
 
 app.use((req, res, next) => {
-  req.setEncoding('utf8')
+  //req.setEncoding('utf8')
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Headers', '*')
   next()
