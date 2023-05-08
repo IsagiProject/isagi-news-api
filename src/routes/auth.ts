@@ -16,6 +16,7 @@ const router: Router = express.Router()
 router.post('/register', async (req, res) => {
   const { user, email, password } = req.body
   const regex = new RegExp(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/)
+  const token = crypto.randomBytes(32).toString('hex')
   try {
     const request = new mssql.Request()
     request.input('email', mssql.VarChar, email)
@@ -50,10 +51,12 @@ router.post('/register', async (req, res) => {
     insertRequest.input('email', mssql.VarChar, email)
     insertRequest.input('password', mssql.VarChar, hash)
     insertRequest.input('username', mssql.VarChar, user)
+    insertRequest.input('token', mssql.VarChar, token)
 
     await insertRequest.query(
-      'insert into users (username, email, password) values (@username, @email, @password) '
-    )
+      'insert into users (username, email, password, verification_token) values (@username, @email, @password, @token) '
+    ) 
+    sendRecoverMail(email, token)
     res
       .json(getSuccessfulFormatedResponse(200, 'User created'))
       .status(200)

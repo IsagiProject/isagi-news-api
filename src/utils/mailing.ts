@@ -35,3 +35,17 @@ export function sendRecoverMail(mail: string, recoverToken: string) {
     else console.log(info)
   })
 }
+
+export function sendConfirmationMail(mail: string, confirmToken: string) {
+  recoverMail.to = mail
+  recoverMail.html = recoverMail.html
+    .replace('{{email}}', mail)
+    .replace('{{token}}', confirmToken)
+    .replace('{{url}}', process.env.WEB_URL as string)
+    .replace('{{recoverPath}}', process.env.EMAIL_CONFIRM_PATH as string)  
+
+  transporter.sendMail(recoverMail, function (err, info) {
+    if (err) throw err
+    else console.log(info)
+  })
+}
