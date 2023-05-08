@@ -216,4 +216,32 @@ router.post('/token/validate', async (req, res) => {
   }
 })
 
+router.post('/verify-email', async (req, res) => { //TODO: Verificar cuenta, asignar que la cuenta se ha verificado
+  const { token } = req.body
+  try {
+    const request = new mssql.Request()
+    request.input('token', mssql.VarChar, token)
+    const result = await request.query(
+      'select * from users where verification_token = @token'
+    ) as any
+    if (result.recordset.length === 0) {
+      res
+        .json(getErrorFormattedResponse(404, 'User not found'))
+        .status(404)
+        .end()
+      return
+    }
+    const user = result.recordset[0]
+    const updateRequest = new mssql.Request()
+    updateRequest.input('user_id', mssql.Int, user.user_id)
+    updateRequest.query(
+      'update users set email_verified_at = CURRENT_TIMESTAMP where user_id = @user_id'
+    )
+    res.json(getSuccessfulFormatedResponse(200, 'Cuenta verificada')).end()
+  } catch (err) {
+    console.log(err)
+    res.json(getDefaultErrorMessage()).status(500).end()
+  }
+})
+
 export default router
