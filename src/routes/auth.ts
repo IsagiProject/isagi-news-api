@@ -2,7 +2,7 @@ import express, { Router } from 'express'
 import mssql from 'mssql'
 import crypto from 'crypto'
 import jwt from 'jsonwebtoken'
-import { sendRecoverMail } from '../utils/mailing.js'
+import { sendConfirmationMail, sendRecoverMail } from '../utils/mailing.js'
 import { getHashedPassword, userExistsWithEmail } from '../utils/user.js'
 import {
   getDefaultErrorMessage,
@@ -56,7 +56,7 @@ router.post('/register', async (req, res) => {
     await insertRequest.query(
       'insert into users (username, email, password, verification_token) values (@username, @email, @password, @token) '
     ) 
-    sendRecoverMail(email, token)
+    sendConfirmationMail(email, token)
     res
       .json(getSuccessfulFormatedResponse(200, 'User created'))
       .status(200)

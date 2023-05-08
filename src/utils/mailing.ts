@@ -36,15 +36,21 @@ export function sendRecoverMail(mail: string, recoverToken: string) {
   })
 }
 
+const confirmMail = {
+  from: process.env.EMAIL_FROM,
+  to: '',
+  subject: 'Verificar cuenta',
+  html: fs.readFileSync('./src/templates/verified_email.html', 'utf8')
+}
 export function sendConfirmationMail(mail: string, confirmToken: string) {
-  recoverMail.to = mail
-  recoverMail.html = recoverMail.html
+  confirmMail.to = mail
+  confirmMail.html = confirmMail.html
     .replace('{{email}}', mail)
     .replace('{{token}}', confirmToken)
     .replace('{{url}}', process.env.WEB_URL as string)
     .replace('{{recoverPath}}', process.env.EMAIL_CONFIRM_PATH as string)  
 
-  transporter.sendMail(recoverMail, function (err, info) {
+  transporter.sendMail(confirmMail, function (err, info) {
     if (err) throw err
     else console.log(info)
   })
