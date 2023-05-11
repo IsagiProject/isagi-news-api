@@ -39,7 +39,7 @@ router.post('/register', async (req, res) => {
       return
     }
 
-    if (password.length < 9) {
+    if (password.length < 8) {
       res.json({ status: 400, error: 'Invalid password' }).status(400).end()
       return
     }
