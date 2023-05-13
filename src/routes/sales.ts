@@ -66,7 +66,7 @@ router.post('/', async (req, res) => {
       `insert into sales (title, description, image, shop, link, old_price, new_price, user_id) values (@title, @description, @image, @shop, @link, @old_price, @new_price, @user_id); select @@identity as sale_id`
     )
     res
-      .json(getObjectFormattedResponse(200, { sale_id: result.recordset[0] }))
+      .json(getObjectFormattedResponse(200, result.recordset[0]))
       .status(200)
       .end()
   } catch (err) {
