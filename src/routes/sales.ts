@@ -23,20 +23,29 @@ router.get('/', async (req, res) => {
     const request = new mssql.Request()
     if (order === 'date') {
       result = await request.query(
-        `select s.*, concat('@', u.username) as username from sales s join users u on s.user_id = u.user_id  order by created_at`
+        `select s.*, concat('@', u.username) as username from sales s join users u on s.user_id = u.user_id order by created_at desc`
       )
-    } else if (order === 'price') {
+    } else if (order === 'price_asc') {
       result = await request.query(
-        `select s.*, concat('@', u.username) as username from sales s join users u on s.user_id = u.user_id  order by new_price`
+        `select s.*, concat('@', u.username) as username from sales s join users u on s.user_id = u.user_id order by new_price`
+      )
+    } else if (order === 'price_desc') {
+      result = await request.query(
+        `select s.*, concat('@', u.username) as username from sales s join users u on s.user_id = u.user_id order by new_price desc`
       )
     } else if (order === 'title') {
       result = await request.query(
         `select s.*, concat('@', u.username) as username from sales s join users u on s.user_id = u.user_id order by title`
       )
-    } else if (order === 'discount') {
+    } else if (order === 'discount_asc') {
       result = await request.query(
         `select s.*, concat('@', u.username) as username from sales s join users u on s.user_id = u.user_id
-     order by (new_price / old_price)`
+     order by (new_price / NULLIF(old_price, 0))`
+      )
+    } else if (order === 'discount_desc') {
+      result = await request.query(
+        `select s.*, concat('@', u.username) as username from sales s join users u on s.user_id = u.user_id
+     order by (new_price / NULLIF(old_price, 0)) desc`
       )
     } else {
       result = await request.query(
