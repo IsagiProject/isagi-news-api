@@ -149,6 +149,7 @@ router.post('/recover', async (req, res) => {
         .json(getErrorFormattedResponse(404, 'User not found'))
         .status(404)
         .end()
+      return
     }
 
     const recoverIsValidRequest = new mssql.Request()
