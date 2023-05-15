@@ -15,20 +15,20 @@ export const transporter = nodemailer.createTransport({
   secure: true
 })
 
-const recoverMail = {
-  from: process.env.EMAIL_FROM,
-  to: '',
-  subject: 'Recuperacion de contraseña',
-  html: fs.readFileSync('./src/templates/recover_password.html', 'utf8')
-}
-
 export function sendRecoverMail(mail: string, recoverToken: string) {
+  const recoverMail = {
+    from: process.env.EMAIL_FROM,
+    to: '',
+    subject: 'Recuperacion de contraseña',
+    html: fs.readFileSync('./src/templates/recover_password.html', 'utf8')
+  }
+
   recoverMail.to = mail
   recoverMail.html = recoverMail.html
     .replace('{{email}}', mail)
     .replace('{{token}}', recoverToken)
     .replace('{{url}}', process.env.WEB_URL as string)
-    .replace('{{recoverPath}}', process.env.PASSWORD_RECOVER_PATH as string)  
+    .replace('{{recoverPath}}', process.env.PASSWORD_RECOVER_PATH as string)
 
   transporter.sendMail(recoverMail, function (err, info) {
     if (err) throw err
