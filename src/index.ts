@@ -10,6 +10,7 @@ import faq from './routes/faq.js'
 import media from './routes/media.js'
 import swaggerUi from 'swagger-ui-express'
 import fs from 'fs'
+import { getNews, getNewsLevelUp, getNewsLevelUpMicrosoft, getNewsLevelUpNintendo, getNewsLevelUpPlayStation, getNewsSteam } from './utils/news.js'
 
 dotenv.config()
 
@@ -74,3 +75,10 @@ function connectToDB(): void {
     }
   })
 }
+setTimeout(() => {
+  getNews()
+  getNewsLevelUpPlayStation()
+  getNewsLevelUpMicrosoft()
+  getNewsLevelUpNintendo()
+  getNewsSteam()
+}, 5000);
