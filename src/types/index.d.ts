@@ -17,3 +17,7 @@ export type UserJWT = {
   iat: number
   exp: number
 }
+
+export type sqlOrdersType = {
+  [key: string]: string
+}

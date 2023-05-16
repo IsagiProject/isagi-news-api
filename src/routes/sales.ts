@@ -7,7 +7,7 @@ import {
   getObjectFormattedResponse
 } from '../utils/format.js'
 import jwt from 'jsonwebtoken'
-import { UserJWT } from '../types/index.js'
+import { UserJWT, sqlOrdersType } from '../types/index.js'
 import { getChildComments } from '../utils/comments.js'
 import { getUserIdFromToken } from '../utils/user.js'
 
@@ -16,42 +16,31 @@ const router: Router = express.Router()
 router.post('*', validateJWT)
 
 router.get('/', async (req, res) => {
-  const order = req.query.order
+  const order = req.query.order as string
+  const q = req.query.q as string
   const filter = req.query.filter
+
+  const sqlOrders: sqlOrdersType = {
+    date: 'created_at desc',
+    price_asc: 'new_price',
+    price_desc: 'new_price desc',
+    title: 'title',
+    discount_asc: '(new_price / NULLIF(old_price, 0))',
+    discount_desc: '(new_price / NULLIF(old_price, 0)) desc',
+    default: 'sale_id'
+  }
   let result: mssql.IResult<any>
   try {
     const request = new mssql.Request()
-    if (order === 'date') {
-      result = await request.query(
-        `select s.*, concat('@', u.username) as username from sales s join users u on s.user_id = u.user_id order by created_at desc`
-      )
-    } else if (order === 'price_asc') {
-      result = await request.query(
-        `select s.*, concat('@', u.username) as username from sales s join users u on s.user_id = u.user_id order by new_price`
-      )
-    } else if (order === 'price_desc') {
-      result = await request.query(
-        `select s.*, concat('@', u.username) as username from sales s join users u on s.user_id = u.user_id order by new_price desc`
-      )
-    } else if (order === 'title') {
-      result = await request.query(
-        `select s.*, concat('@', u.username) as username from sales s join users u on s.user_id = u.user_id order by title`
-      )
-    } else if (order === 'discount_asc') {
-      result = await request.query(
-        `select s.*, concat('@', u.username) as username from sales s join users u on s.user_id = u.user_id
-     order by (new_price / NULLIF(old_price, 0))`
-      )
-    } else if (order === 'discount_desc') {
-      result = await request.query(
-        `select s.*, concat('@', u.username) as username from sales s join users u on s.user_id = u.user_id
-     order by (new_price / NULLIF(old_price, 0)) desc`
-      )
-    } else {
-      result = await request.query(
-        `select s.*, concat('@', u.username) as username from sales s join users u on s.user_id = u.user_id order by sale_id`
-      )
+    const orderBy = sqlOrders[order] || sqlOrders['default']
+    if (q) {
+      request.input('q', mssql.VarChar, `%${q.toLowerCase()}%`)
     }
+    result = await request.query(
+      `select s.*, concat('@', u.username) as username from sales s join users u on s.user_id = u.user_id ${
+        q ? 'where title like lower(@q)' : ''
+      } order by ${orderBy}`
+    )
     res.json(getDBFormattedResponse(200, result.recordset)).status(200).end()
   } catch (err) {
     res.json(getDefaultErrorMessage()).status(500).end()
