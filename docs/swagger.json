@@ -396,6 +396,15 @@
               "type": "string",
               "enum": ["price", "title", "discount"]
             }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Busqueda por titulo",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
