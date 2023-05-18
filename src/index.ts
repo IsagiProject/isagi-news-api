@@ -48,7 +48,7 @@ app.use((req, res, next) => {
 
 app.listen(port, () => {
   connectToDB()
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`App listening at http://localhost:${port}`)
 })
 
 app.get('/', (req, res) => {
