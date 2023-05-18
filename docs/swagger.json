@@ -7,9 +7,44 @@
   "servers": [
     {
       "url": "https://isagiapi.galder315.ga/"
+    },
+    {
+      "url": "http://localhost:3000/"
     }
   ],
   "paths": {
+    "/account/sales/liked": {
+      "get": {
+        "tags": ["account", "sales"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de ofertas favoritas del usuario",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SalesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No autorizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/auth/register": {
       "post": {
         "tags": ["auth"],

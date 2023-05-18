@@ -308,5 +308,23 @@
       "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJ1c2VybmFtZSI6IkEiLCJlbWFpbCI6InRlc3RAdGVzdC50ZXN0IiwicmVtZW1iZXIiOiJ0cnVlIiwiaWF0IjoxNjgzNDQ2MTQyLCJleHAiOjE3MTUwMDM3NDJ9.-oKRNQZcwluoRappP0jB_GTWQmt9qgyDrJrbWMl5JYc"
     },
     "tests": []
+  },
+  {
+    "_id": "13956b1d-a979-4838-86ff-34a8d1df7c58",
+    "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
+    "containerId": "3ed22039-d88b-4883-a8cb-01678e50321a",
+    "name": "Liked Sales",
+    "url": "http://localhost:3000/account/sales/liked",
+    "method": "GET",
+    "sortNum": 150000,
+    "created": "2023-05-18T06:39:37.858Z",
+    "modified": "2023-05-18T06:44:31.245Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJ1c2VybmFtZSI6IkEiLCJlbWFpbCI6InRlc3RAdGVzdC50ZXN0IiwicmVtZW1iZXIiOiJ0cnVlIiwiaWF0IjoxNjg0MzkyMDAxLCJleHAiOjE3MTU5NDk2MDF9.N4K0JnBK5-StToC9FPjY1ZeNwKVh3h-i3bbl-7a5w7"
+    },
+    "tests": []
   }
 ]
