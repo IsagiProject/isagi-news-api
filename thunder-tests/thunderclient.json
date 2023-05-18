@@ -326,5 +326,28 @@
       "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJ1c2VybmFtZSI6IkEiLCJlbWFpbCI6InRlc3RAdGVzdC50ZXN0IiwicmVtZW1iZXIiOiJ0cnVlIiwiaWF0IjoxNjg0MzkyMDAxLCJleHAiOjE3MTU5NDk2MDF9.N4K0JnBK5-StToC9FPjY1ZeNwKVh3h-i3bbl-7a5w7"
     },
     "tests": []
+  },
+  {
+    "_id": "1faf04e7-a0b8-4d21-a67e-9cd92f456a70",
+    "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
+    "containerId": "3ed22039-d88b-4883-a8cb-01678e50321a",
+    "name": "Like Sale",
+    "url": "http://localhost:3000/account/sales/liked",
+    "method": "POST",
+    "sortNum": 160000,
+    "created": "2023-05-18T07:01:56.756Z",
+    "modified": "2023-05-18T07:08:40.189Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"saleId\": 22\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJ1c2VybmFtZSI6IkEiLCJlbWFpbCI6InRlc3RAdGVzdC50ZXN0IiwicmVtZW1iZXIiOiJ0cnVlIiwiaWF0IjoxNjg0MzkyMDAxLCJleHAiOjE3MTU5NDk2MDF9.N4K0JnBK5-StToC9FPjY1ZeNwKVh3h-i3bbl-7a5w7A"
+    },
+    "tests": []
   }
 ]

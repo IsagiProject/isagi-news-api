@@ -43,6 +43,56 @@
             }
           }
         }
+      },
+      "post": {
+        "tags": ["account", "sales"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaleIdRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Oferta añadida a favoritos correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos no validos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No autorizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/auth/register": {
@@ -1008,6 +1058,15 @@
                 "description": "Identificador de la oferta"
               }
             }
+          }
+        }
+      },
+      "SaleIdRequest": {
+        "type": "object",
+        "properties": {
+          "saleId": {
+            "type": "integer",
+            "description": "Identificador de la oferta"
           }
         }
       },
