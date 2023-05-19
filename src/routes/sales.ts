@@ -32,12 +32,20 @@ router.get('/', async (req, res) => {
   let result: mssql.IResult<any>
   try {
     const request = new mssql.Request()
+    const userId = getUserIdFromToken(req)
     const orderBy = sqlOrders[order] || sqlOrders['default']
     if (q) {
       request.input('q', mssql.VarChar, `%${q.toLowerCase()}%`)
     }
     result = await request.query(
-      `select s.*, concat('@', u.username) as username from sales s join users u on s.user_id = u.user_id ${
+      `select s.*, concat('@', u.username) as username, 
+      (select count(*) from sales_users_likes where sale_id = s.sale_id) likes
+      ${
+        userId !== -1
+          ? `, (select count(*) from sales_users_likes sul where sale_id = s.sale_id and sul.user_id = ${userId}) user_liked `
+          : ''
+      }
+      from sales s join users u on s.user_id = u.user_id ${
         q ? 'where title like lower(@q)' : ''
       } order by ${orderBy}`
     )

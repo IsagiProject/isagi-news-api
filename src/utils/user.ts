@@ -16,7 +16,14 @@ export function getHashedPassword(password: string) {
 }
 
 export function getUserIdFromToken(req: Request) {
-  const token = req.headers.authorization?.split(' ')[1]
-  const { user_id } = jwt.verify(token!, process.env.JWT_SECRET_KEY!) as UserJWT
-  return user_id
+  try {
+    const token = req.headers.authorization?.split(' ')[1]
+    const { user_id } = jwt.verify(
+      token!,
+      process.env.JWT_SECRET_KEY!
+    ) as UserJWT
+    return user_id
+  } catch (err) {
+    return -1
+  }
 }
