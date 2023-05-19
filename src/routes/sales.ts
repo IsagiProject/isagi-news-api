@@ -83,10 +83,17 @@ router.post('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   try {
+    const userId = getUserIdFromToken(req)
     const request = new mssql.Request()
     request.input('id', mssql.Int, req.params.id)
     const result = await request.query(
-      `select s.*, concat('@', u.username) as username from sales s join users u on s.user_id = u.user_id where s.sale_id = @id`
+      `select s.*, concat('@', u.username) as username, 
+      (select count(*) from sales_users_likes where sale_id = s.sale_id) likes
+      ${
+        userId !== -1
+          ? `, (select count(*) from sales_users_likes sul where sale_id = s.sale_id and sul.user_id = ${userId}) user_liked `
+          : ''
+      } from sales s join users u on s.user_id = u.user_id where s.sale_id = @id`
     )
     res.json(getDBFormattedResponse(200, result.recordset[0])).status(200).end()
   } catch (err) {
