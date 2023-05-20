@@ -541,6 +541,12 @@
     "/sales": {
       "get": {
         "tags": ["sales"],
+        "security": [
+          {
+            "BearerAuth": []
+          },
+          {}
+        ],
         "parameters": [
           {
             "name": "order",
@@ -630,6 +636,12 @@
     "/sales/{id}": {
       "get": {
         "tags": ["sales"],
+        "security": [
+          {
+            "BearerAuth": []
+          },
+          {}
+        ],
         "parameters": [
           {
             "name": "id",

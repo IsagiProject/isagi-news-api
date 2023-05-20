@@ -80,11 +80,11 @@
     "colId": "4f50b58e-0d21-4fed-bc27-ce87ad8ec0e3",
     "containerId": "3f85ebdd-e076-4abe-aa58-2f60a7632758",
     "name": "Login",
-    "url": "http://localhost:3000/auth/login",
+    "url": "http://isagiapi.galder315.ga/auth/login",
     "method": "POST",
     "sortNum": 40000,
     "created": "2023-03-10T09:22:04.285Z",
-    "modified": "2023-04-18T16:05:20.838Z",
+    "modified": "2023-05-20T15:12:19.412Z",
     "headers": [],
     "params": [],
     "body": {
@@ -318,12 +318,12 @@
     "method": "GET",
     "sortNum": 150000,
     "created": "2023-05-18T06:39:37.858Z",
-    "modified": "2023-05-18T06:44:31.245Z",
+    "modified": "2023-05-20T16:26:53.580Z",
     "headers": [],
     "params": [],
     "auth": {
       "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJ1c2VybmFtZSI6IkEiLCJlbWFpbCI6InRlc3RAdGVzdC50ZXN0IiwicmVtZW1iZXIiOiJ0cnVlIiwiaWF0IjoxNjg0MzkyMDAxLCJleHAiOjE3MTU5NDk2MDF9.N4K0JnBK5-StToC9FPjY1ZeNwKVh3h-i3bbl-7a5w7"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJ1c2VybmFtZSI6IkEiLCJlbWFpbCI6InRlc3RAdGVzdC50ZXN0IiwicmVtZW1iZXIiOiJ0cnVlIiwiaWF0IjoxNjg0NTk1NTQwLCJleHAiOjE3MTYxNTMxNDB9.RGyI7fjUGmn3jKbd5i8jmj7zF_T4-jd2FTkc30W0dbo"
     },
     "tests": []
   },

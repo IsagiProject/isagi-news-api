@@ -18,7 +18,12 @@ router.get('/sales/liked', async (req, res) => {
   const request = new mssql.Request()
   request.input('userId', mssql.Int, userId)
   const sales = await request.query(
-    'select s.*, (select count(*) from sales_users_likes where sale_id = s.sale_id) likes from sales s join sales_users_likes su on su.sale_id = s.sale_id where su.user_id = @userId'
+    `select s.*, (select count(*) from sales_users_likes where sale_id = s.sale_id) likes
+    ${
+      userId !== -1
+        ? `, (select count(*) from sales_users_likes sul where sale_id = s.sale_id and sul.user_id = ${userId}) user_liked `
+        : ''
+    } from sales s join sales_users_likes su on su.sale_id = s.sale_id where su.user_id = @userId`
   )
   res.json(getDBFormattedResponse(200, sales.recordset)).status(200).end()
 })
