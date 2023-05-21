@@ -13,7 +13,7 @@ router.get('/users', (req, res) => {
   const request = new mssql.Request()
   request
     .query(
-      'select user_id, username, email, admin, email_verified_at from users'
+      'select user_id, username, email, admin, email_verified_at, blocked from users'
     )
     .then((result) => {
       res.json(getDBFormattedResponse(200, result.recordset)).status(200).end()

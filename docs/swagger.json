@@ -1247,6 +1247,10 @@
                 "admin": {
                   "type": "integer",
                   "description": "Si el usuario es administrador"
+                },
+                "blocked": {
+                  "type": "integer",
+                  "description": "Si el usuario esta bloqueado"
                 }
               }
             }
