@@ -165,6 +165,38 @@
         }
       }
     },
+    "/admin/users": {
+      "get": {
+        "tags": ["admin", "users"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de usuarios",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsersAdminResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No autorizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/auth/register": {
       "post": {
         "tags": ["auth"],
@@ -1178,6 +1210,43 @@
                 "items": {
                   "type": "string",
                   "description": "Enlace a la imagen subida"
+                }
+              }
+            }
+          }
+        }
+      },
+      "UsersAdminResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "Codigo de estado de la respuesta",
+            "example": 200
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "user_id": {
+                  "type": "integer",
+                  "description": "Identificador del usuario"
+                },
+                "email": {
+                  "type": "string",
+                  "description": "Email del usuario"
+                },
+                "username": {
+                  "type": "string",
+                  "description": "Nombre de usuario"
+                },
+                "email_verified_at": {
+                  "type": "string",
+                  "description": "Fecha de verificacion del email"
+                },
+                "admin": {
+                  "type": "integer",
+                  "description": "Si el usuario es administrador"
                 }
               }
             }
