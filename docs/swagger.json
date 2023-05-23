@@ -197,6 +197,79 @@
         }
       }
     },
+    "/admin/users/{id}": {
+      "put": {
+        "tags": ["admin", "users"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id del usuario",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Usuario actualizado correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsersAdminResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos no validos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No autorizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuario no encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/auth/register": {
       "post": {
         "tags": ["auth"],
@@ -1249,11 +1322,32 @@
                   "description": "Si el usuario es administrador"
                 },
                 "blocked": {
-                  "type": "integer",
+                  "type": "boolean",
                   "description": "Si el usuario esta bloqueado"
                 }
               }
             }
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Email del usuario"
+          },
+          "username": {
+            "type": "string",
+            "description": "Nombre de usuario"
+          },
+          "admin": {
+            "type": "integer",
+            "description": "Si el usuario es administrador"
+          },
+          "blocked": {
+            "type": "boolean",
+            "description": "Si el usuario esta bloqueado"
           }
         }
       }
