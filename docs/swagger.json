@@ -184,6 +184,16 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Faq"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "Pregunta frecuente editada correctamente",
