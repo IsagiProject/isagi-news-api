@@ -177,4 +177,36 @@ router.put('/sales/:id', async (req, res) => {
     })
 })
 
+router.put('/faq/:id', async (req, res) => {
+  const request = new mssql.Request()
+  const { question, answer } = req.body
+
+  const getFaqRequest = new mssql.Request()
+  getFaqRequest.input('question_id', mssql.Int, req.params.id)
+  const faq = await getFaqRequest
+    .query('select * from faq_questions where question_id = @question_id')
+    .then((result) => result.recordset[0])
+  request.input('question', mssql.VarChar, question ? question : faq.question)
+  request.input('answer', mssql.VarChar, answer ? answer : faq.answer)
+  request
+    .input('question_id', mssql.Int, req.params.id)
+    .query(
+      `update faq_questions set
+      question = @question,
+      answer = @answer
+      where question_id = @question_id;
+      select * from faq_questions where question_id = @question_id`
+    )
+    .then((result) => {
+      res
+        .json(getObjectFormattedResponse(200, result.recordset[0]))
+        .status(200)
+        .end()
+    })
+    .catch((err) => {
+      console.log(err)
+      res.json(getDefaultErrorMessage()).status(500).end()
+    })
+})
+
 export default router
