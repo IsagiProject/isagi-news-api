@@ -1,9 +1,17 @@
 import express from 'express'
+import crypto from 'crypto'
 import { Router } from 'express'
 import validateJWT from '../middleware/validateJWT.js'
 import isAdmin from '../middleware/isAdmin.js'
 import mssql from 'mssql'
-import { getDBFormattedResponse } from '../utils/format.js'
+import {
+  getDBFormattedResponse,
+  getDefaultErrorMessage,
+  getObjectFormattedResponse
+} from '../utils/format.js'
+import { getHashedPassword, userExistsWithId } from '../utils/user.js'
+import { getSuccessfulFormatedResponse } from '../utils/format.js'
+import { sendNewPasswordMail } from '../utils/mailing.js'
 
 const router: Router = express.Router()
 
@@ -20,10 +28,7 @@ router.get('/users', (req, res) => {
     })
     .catch((err) => {
       console.log(err)
-      res
-        .json({ status: 500, error: 'Internal server error' })
-        .status(500)
-        .end()
+      res.json(getDefaultErrorMessage()).status(500).end()
     })
 })
 
@@ -61,10 +66,32 @@ router.put('/users/:id', async (req, res) => {
     })
     .catch((err) => {
       console.log(err)
-      res
-        .json({ status: 500, error: 'Internal server error' })
-        .status(500)
-        .end()
+      res.json(getDefaultErrorMessage()).status(500).end()
     })
+})
+
+router.post('/users/:id/reset-password', async (req, res) => {
+  if (!userExistsWithId(parseInt(req.params.id))) {
+    res.json({ status: 404, error: 'User not found' }).status(404).end()
+  }
+
+  const request = new mssql.Request()
+  const randomPass = crypto.randomBytes(16).toString('hex')
+  const hashedPass = getHashedPassword(randomPass)
+  request.input('user_id', mssql.Int, req.params.id)
+  request.input('password', mssql.VarChar, hashedPass)
+  try {
+    const dbRes = await request.query(
+      `update users set password = @password where user_id = @user_id; select email from users where user_id = @user_id`
+    )
+    sendNewPasswordMail(dbRes.recordset[0].email, randomPass)
+    res
+      .json(getObjectFormattedResponse(200, { password: randomPass }))
+      .status(200)
+      .end()
+  } catch (err) {
+    console.log(err)
+    res.json(getDefaultErrorMessage()).status(500).end()
+  }
 })
 export default router
