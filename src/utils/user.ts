@@ -27,3 +27,10 @@ export function getUserIdFromToken(req: Request) {
     return -1
   }
 }
+
+export async function userExistsWithId(id: number) {
+  const request = new mssql.Request()
+  request.input('user_id', mssql.Int, id)
+  const res = await request.query('select * from users where user_id = @user_id')
+  return res.recordset.length > 0
+}
