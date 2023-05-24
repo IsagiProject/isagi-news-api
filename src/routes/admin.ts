@@ -7,7 +7,8 @@ import mssql from 'mssql'
 import {
   getDBFormattedResponse,
   getDefaultErrorMessage,
-  getObjectFormattedResponse
+  getObjectFormattedResponse,
+  getSuccessfulFormatedResponse
 } from '../utils/format.js'
 import { getHashedPassword, userExistsWithId } from '../utils/user.js'
 import { sendNewPasswordMail } from '../utils/mailing.js'
@@ -30,8 +31,6 @@ router.get('/users', (req, res) => {
       res.json(getDefaultErrorMessage()).status(500).end()
     })
 })
-
-
 
 router.put('/users/:id', async (req, res) => {
   const request = new mssql.Request()
@@ -61,7 +60,7 @@ router.put('/users/:id', async (req, res) => {
     )
     .then((result) => {
       res
-        .json(getDBFormattedResponse(200, result.recordset[0]))
+        .json(getObjectFormattedResponse(200, result.recordset[0]))
         .status(200)
         .end()
     })
@@ -95,4 +94,87 @@ router.post('/users/:id/reset-password', async (req, res) => {
     res.json(getDefaultErrorMessage()).status(500).end()
   }
 })
+
+router.post('/users/:id/ban', async (req, res) => {
+  if (!userExistsWithId(parseInt(req.params.id))) {
+    res.json({ status: 404, error: 'User not found' }).status(404).end()
+  }
+
+  const request = new mssql.Request()
+  request.input('user_id', mssql.Int, req.params.id)
+  try {
+    await request.query(`update users set blocked = 1 where user_id = @user_id`)
+    res
+      .json(getSuccessfulFormatedResponse(200, 'User banned successfuly'))
+      .status(200)
+      .end()
+  } catch (err) {
+    console.log(err)
+    res.json(getDefaultErrorMessage()).status(500).end()
+  }
+})
+
+router.delete('/users/:id/ban', async (req, res) => {
+  if (!userExistsWithId(parseInt(req.params.id))) {
+    res.json({ status: 404, error: 'User not found' }).status(404).end()
+  }
+
+  const request = new mssql.Request()
+  request.input('user_id', mssql.Int, req.params.id)
+  try {
+    await request.query(`update users set blocked = 0 where user_id = @user_id`)
+    res
+      .json(getSuccessfulFormatedResponse(200, 'User unbanned successfuly'))
+      .status(200)
+      .end()
+  } catch (err) {
+    console.log(err)
+    res.json(getDefaultErrorMessage()).status(500).end()
+  }
+})
+
+router.put('/sales/:id', async (req, res) => {
+  const request = new mssql.Request()
+  const { title, description, shop, link, oldPrice, newPrice } = req.body
+
+  const getSaleRequest = new mssql.Request()
+  getSaleRequest.input('sale_id', mssql.Int, req.params.id)
+  const sale = await getSaleRequest
+    .query('select * from sales where sale_id = @sale_id')
+    .then((result) => result.recordset[0])
+  request.input('title', mssql.VarChar, title ? title : sale.title)
+  request.input(
+    'description',
+    mssql.VarChar,
+    description ? description : sale.description
+  )
+  request.input('shop', mssql.VarChar, shop ? shop : sale.shop)
+  request.input('link', mssql.VarChar, link ? link : sale.link)
+  request.input('old_price', mssql.Float, oldPrice ? oldPrice : sale.old_price)
+  request.input('new_price', mssql.Float, newPrice ? newPrice : sale.new_price)
+  request
+    .input('sale_id', mssql.Int, req.params.id)
+    .query(
+      `update sales set
+      title = @title,
+      description = @description,
+      shop = @shop,
+      link = @link,
+      old_price = @old_price,
+      new_price = @new_price
+      where sale_id = @sale_id;
+      select * from sales where sale_id = @sale_id`
+    )
+    .then((result) => {
+      res
+        .json(getObjectFormattedResponse(200, result.recordset[0]))
+        .status(200)
+        .end()
+    })
+    .catch((err) => {
+      console.log(err)
+      res.json(getDefaultErrorMessage()).status(500).end()
+    })
+})
+
 export default router
