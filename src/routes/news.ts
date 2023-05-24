@@ -11,7 +11,6 @@ const router: Router = express.Router()
 router.get('/', async (req: Request, res: Response) => {
   try {
     const result = await mssql.query(`select * from news`)
-    console.log(result)
     res.json(getDBFormattedResponse(200, result.recordset)).status(200).end()
   } catch (err) {
     res.json(getDefaultErrorMessage()).status(500).end()
