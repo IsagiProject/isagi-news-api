@@ -10,7 +10,6 @@ import {
   getObjectFormattedResponse
 } from '../utils/format.js'
 import { getHashedPassword, userExistsWithId } from '../utils/user.js'
-import { getSuccessfulFormatedResponse } from '../utils/format.js'
 import { sendNewPasswordMail } from '../utils/mailing.js'
 
 const router: Router = express.Router()
@@ -31,6 +30,8 @@ router.get('/users', (req, res) => {
       res.json(getDefaultErrorMessage()).status(500).end()
     })
 })
+
+
 
 router.put('/users/:id', async (req, res) => {
   const request = new mssql.Request()
