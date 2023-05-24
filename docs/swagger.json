@@ -165,6 +165,49 @@
         }
       }
     },
+    "/admin/faq/{id}": {
+      "put": {
+        "tags": ["admin"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id de la pregunta frecuente",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pregunta frecuente editada correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaqUniqueResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No autorizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/admin/sales/{id}": {
       "put": {
         "tags": ["admin"],
@@ -1308,8 +1351,41 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/FaqResponse"
+              "$ref": "#/components/schemas/Faq"
             }
+          }
+        }
+      },
+      "Faq": {
+        "type": "object",
+        "properties": {
+          "question_id": {
+            "type": "integer",
+            "description": "Identificador de la pregunta frecuente"
+          },
+          "question": {
+            "type": "string",
+            "description": "Pregunta frecuente"
+          },
+          "answer": {
+            "type": "string",
+            "description": "Respuesta a la pregunta frecuente"
+          }
+        }
+      },
+      "FaqUniqueResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Faq"
+              }
+            ]
           }
         }
       },
