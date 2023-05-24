@@ -1,7 +1,6 @@
 import nodemailer from 'nodemailer'
 import dotenv from 'dotenv'
 import fs from 'fs'
-import crypto from 'crypto'
 
 dotenv.config()
 
@@ -30,9 +29,8 @@ export function sendRecoverMail(mail: string, recoverToken: string) {
     .replace('{{url}}', process.env.WEB_URL as string)
     .replace('{{recoverPath}}', process.env.PASSWORD_RECOVER_PATH as string)
 
-  transporter.sendMail(recoverMail, function (err, info) {
+  transporter.sendMail(recoverMail, function (err) {
     if (err) throw err
-    else console.log(info)
   })
 }
 
@@ -46,8 +44,7 @@ export function sendNewPasswordMail(mail: string, password: string) {
   emailData.to = mail
   emailData.html = emailData.html.replace('{{password}}', password)
 
-  transporter.sendMail(emailData, function (err, info) {
+  transporter.sendMail(emailData, function (err) {
     if (err) throw err
-    else console.log(info)
   })
 }
