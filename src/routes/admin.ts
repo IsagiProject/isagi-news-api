@@ -76,7 +76,7 @@ router.post('/users/:id/reset-password', async (req, res) => {
   }
 
   const request = new mssql.Request()
-  const randomPass = crypto.randomBytes(16).toString('hex')
+  const randomPass = crypto.randomBytes(6).toString('hex')
   const hashedPass = getHashedPassword(randomPass)
   request.input('user_id', mssql.Int, req.params.id)
   request.input('password', mssql.VarChar, hashedPass)
