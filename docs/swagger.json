@@ -1182,7 +1182,23 @@
           },
           "user_id": {
             "type": "integer",
-            "description": "Identificador del usuario que ha publicado la oferta (proximamente los datos)"
+            "description": "Identificador del usuario que ha publicado la oferta"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "Fecha de creacion de la oferta"
+          },
+          "username": {
+            "type": "string",
+            "description": "Nombre de usuario del usuario que ha publicado la oferta"
+          },
+          "likes": {
+            "type": "integer",
+            "description": "Numero de likes de la oferta"
+          },
+          "comments": {
+            "type": "integer",
+            "description": "Numero de comentarios de la oferta"
           }
         }
       },
