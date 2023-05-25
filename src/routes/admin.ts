@@ -44,7 +44,7 @@ router.put('/users/:id', async (req, res) => {
 
   request.input('username', mssql.VarChar, username ? username : user.username)
   request.input('email', mssql.VarChar, email ? email : user.email)
-  request.input('admin', mssql.Int, admin ? admin : user.admin)
+  request.input('admin', mssql.Int, admin !== undefined ? admin : user.admin)
   request.input('blocked', mssql.Bit, blocked ? blocked : user.blocked)
 
   request
