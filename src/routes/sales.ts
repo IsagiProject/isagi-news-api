@@ -44,7 +44,8 @@ router.get('/', async (req, res) => {
         userId !== -1
           ? `, (select count(*) from sales_users_likes sul where sale_id = s.sale_id and sul.user_id = ${userId}) user_liked `
           : ''
-      }
+      }, 
+      (select count(*) from sale_comments sc where sc.sale_id = s.sale_id) comments
       from sales s join users u on s.user_id = u.user_id ${
         q ? 'where title like lower(@q)' : ''
       } order by ${orderBy}`
