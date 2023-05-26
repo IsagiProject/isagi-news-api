@@ -39,3 +39,10 @@ export function getDefaultErrorMessage() {
     error: 'Something went wrong'
   }
 }
+
+export function getObjectFormattedResponse(status: number, data: object) {
+  return {
+    status,
+    data
+  }
+}

@@ -9,11 +9,12 @@ import {
   getErrorFormattedResponse,
   getSuccessfulFormatedResponse
 } from '../utils/format.js'
+import { UserJWT } from '../types/index.js'
 
 const router: Router = express.Router()
 
 router.post('/register', async (req, res) => {
-  const { email, password } = req.body
+  const { user, email, password } = req.body
   const regex = new RegExp(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/)
   try {
     const request = new mssql.Request()
@@ -23,7 +24,7 @@ router.post('/register', async (req, res) => {
       `select * from users where email = @email`
     )
 
-    if (!email || !password) {
+    if (!email || !password || !user) {
       res.json({ status: 400, error: 'Invalid data' }).status(400).end()
       return
     }
@@ -38,7 +39,7 @@ router.post('/register', async (req, res) => {
       return
     }
 
-    if (password.length < 9) {
+    if (password.length < 8) {
       res.json({ status: 400, error: 'Invalid password' }).status(400).end()
       return
     }
@@ -48,9 +49,10 @@ router.post('/register', async (req, res) => {
     const insertRequest = new mssql.Request()
     insertRequest.input('email', mssql.VarChar, email)
     insertRequest.input('password', mssql.VarChar, hash)
+    insertRequest.input('username', mssql.VarChar, user)
 
     await insertRequest.query(
-      'insert into users (email, password) values (@email, @password) '
+      'insert into users (username, email, password) values (@username, @email, @password) '
     )
     res
       .json(getSuccessfulFormatedResponse(200, 'User created'))
@@ -73,12 +75,12 @@ router.post('/login', async (req, res) => {
       `select * from users where email = @email and password = @password`
     )
     if (result.recordset.length > 0) {
-      const { user_id, name } = result.recordset[0]
+      const { user_id, username, admin } = result.recordset[0]
       const token = jwt.sign(
-        { user_id, name, email },
+        { user_id, username, email, admin, remember },
         process.env.JWT_SECRET_KEY!,
         {
-          expiresIn: remember ? '1y' : '1h'
+          expiresIn: remember ? '1y' : '7d'
         }
       )
       res
@@ -147,6 +149,7 @@ router.post('/recover', async (req, res) => {
         .json(getErrorFormattedResponse(404, 'User not found'))
         .status(404)
         .end()
+      return
     }
 
     const recoverIsValidRequest = new mssql.Request()
@@ -194,6 +197,20 @@ router.post('/recover', async (req, res) => {
   } catch (err) {
     console.log(err)
     res.json(getDefaultErrorMessage()).status(500).end()
+  }
+})
+
+router.post('/token/validate', async (req, res) => {
+  const { token } = req.body
+  try {
+    //Se comprueba que el token vaya a ser valido al menos durante 24 horas
+    const tomorrow = new Date().getTime() / 1000 + 60 * 60 * 24
+    jwt.verify(token, process.env.JWT_SECRET_KEY!, {
+      clockTimestamp: tomorrow
+    }) as UserJWT
+    res.json({ status: 200, isTokenValid: true }).status(200).end()
+  } catch (err) {
+    res.json({ status: 200, isTokenValid: false }).status(200).end()
   }
 })
 

@@ -7,6 +7,8 @@ import sales from './routes/sales.js'
 import authors from './routes/authors.js'
 import account from './routes/account.js'
 import faq from './routes/faq.js'
+import media from './routes/media.js'
+import admin from './routes/admin.js'
 import swaggerUi from 'swagger-ui-express'
 import fs from 'fs'
 
@@ -39,23 +41,32 @@ app.use(express.urlencoded({ extended: true }))
 app.disable('x-powered-by')
 
 app.use((req, res, next) => {
-  req.setEncoding('utf8')
+  //req.setEncoding('utf8')
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Headers', '*')
+  res.setHeader(
+    'Access-Control-Allow-Methods',
+    'GET, POST, PUT, DELETE, OPTIONS'
+  )
   next()
 })
 
 app.listen(port, () => {
   connectToDB()
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`App listening at http://localhost:${port}`)
 })
 
+app.get('/', (req, res) => {
+  res.send('ISAGI API IS UP!')
+})
 app.use('/auth', authentication)
 app.use('/news', news)
 app.use('/sales', sales)
 app.use('/authors', authors)
 app.use('/account', account)
 app.use('/faq', faq)
+app.use('/media', media)
+app.use('/admin', admin)
 
 app.use('/docs', swaggerUi.serve)
 app.get('/docs', swaggerUi.setup(swaggerDocument))

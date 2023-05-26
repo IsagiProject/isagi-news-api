@@ -1,6 +1,7 @@
 export type DBResponse = {
   status: number
   data: mssql.IRecordSet<any>
+  total?: number
   error?: string
 }
 
@@ -11,6 +12,13 @@ export type ErrorRosponse = {
 
 export type UserJWT = {
   user_id: number
-  name: string
+  username: string
   email: string
+  admin: boolean
+  iat: number
+  exp: number
+}
+
+export type sqlOrdersType = {
+  [key: string]: string
 }
