@@ -7,6 +7,7 @@ import mssql from 'mssql'
 import {
   getDBFormattedResponse,
   getDefaultErrorMessage,
+  getErrorFormattedResponse,
   getObjectFormattedResponse,
   getSuccessfulFormatedResponse
 } from '../utils/format.js'
@@ -139,6 +140,29 @@ router.put('/sales/:id', async (req, res) => {
     })
 })
 
+router.post('/faq', async (req, res) => {
+  const { question, answer } = req.body
+  if (!question || !answer) {
+    res.json(getErrorFormattedResponse(400, 'Invalid data')).status(400).end()
+    return
+  }
+  const request = new mssql.Request()
+  request.input('question', mssql.VarChar, question)
+  request.input('answer', mssql.VarChar, answer)
+  try {
+    const result = await request.query(
+      `insert into faq_questions (question, answer) values (@question, @answer); select @@identity as question_id`
+    )
+    res
+      .json(getObjectFormattedResponse(200, result.recordset[0]))
+      .status(200)
+      .end()
+  } catch (err) {
+    console.log(err)
+    res.json(getDefaultErrorMessage()).status(500).end()
+  }
+})
+
 router.put('/faq/:id', async (req, res) => {
   const request = new mssql.Request()
   const { question, answer } = req.body
@@ -169,6 +193,23 @@ router.put('/faq/:id', async (req, res) => {
       console.log(err)
       res.json(getDefaultErrorMessage()).status(500).end()
     })
+})
+
+router.delete('/faq/:id', async (req, res) => {
+  const request = new mssql.Request()
+  request.input('question_id', mssql.Int, req.params.id)
+  try {
+    await request.query(
+      `delete from faq_questions where question_id = @question_id`
+    )
+    res
+      .json(getSuccessfulFormatedResponse(200, 'Question deleted'))
+      .status(200)
+      .end()
+  } catch (err) {
+    console.log(err)
+    res.json(getDefaultErrorMessage()).status(500).end()
+  }
 })
 
 export default router
