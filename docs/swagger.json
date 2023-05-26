@@ -165,9 +165,125 @@
         }
       }
     },
+    "/admin/faq/{id}": {
+      "put": {
+        "tags": ["admin"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id de la pregunta frecuente",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Faq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Pregunta frecuente editada correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaqUniqueResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No autorizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/sales/{id}": {
+      "put": {
+        "tags": ["admin"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id de la oferta",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SalesUpdateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Oferta actualizada correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SalesUniqueResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos no validos o oferta no encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No autorizado o oferta no encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/admin/users": {
       "get": {
-        "tags": ["admin", "users"],
+        "tags": ["admin"],
         "security": [
           {
             "BearerAuth": []
@@ -197,9 +313,9 @@
         }
       }
     },
-    "/admin/users/{id}": {
-      "put": {
-        "tags": ["admin", "users"],
+    "/admin/users/{id}/reset-password": {
+      "post": {
+        "tags": ["admin"],
         "security": [
           {
             "BearerAuth": []
@@ -216,33 +332,13 @@
             }
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/User"
-              }
-            }
-          },
-          "required": true
-        },
         "responses": {
           "200": {
-            "description": "Usuario actualizado correctamente",
+            "description": "Contraseña del usuario reseteada correctamente",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UsersAdminResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Datos no validos",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
+                  "$ref": "#/components/schemas/PasswordResetResponse"
                 }
               }
             }
@@ -1177,8 +1273,41 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/FaqResponse"
+              "$ref": "#/components/schemas/Faq"
             }
+          }
+        }
+      },
+      "Faq": {
+        "type": "object",
+        "properties": {
+          "question_id": {
+            "type": "integer",
+            "description": "Identificador de la pregunta frecuente"
+          },
+          "question": {
+            "type": "string",
+            "description": "Pregunta frecuente"
+          },
+          "answer": {
+            "type": "string",
+            "description": "Respuesta a la pregunta frecuente"
+          }
+        }
+      },
+      "FaqUniqueResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Faq"
+              }
+            ]
           }
         }
       },
@@ -1338,7 +1467,7 @@
                   "description": "Si el usuario es administrador"
                 },
                 "blocked": {
-                  "type": "boolean",
+                  "type": "integer",
                   "description": "Si el usuario esta bloqueado"
                 }
               }
@@ -1346,24 +1475,51 @@
           }
         }
       },
-      "User": {
+      "PasswordResetResponse": {
         "type": "object",
         "properties": {
-          "email": {
-            "type": "string",
-            "description": "Email del usuario"
-          },
-          "username": {
-            "type": "string",
-            "description": "Nombre de usuario"
-          },
-          "admin": {
+          "status": {
             "type": "integer",
-            "description": "Si el usuario es administrador"
+            "description": "Codigo de estado de la respuesta",
+            "example": 200
           },
-          "blocked": {
-            "type": "boolean",
-            "description": "Si el usuario esta bloqueado"
+          "data": {
+            "type": "object",
+            "properties": {
+              "password": {
+                "type": "string",
+                "description": "Contraseña del usuario"
+              }
+            }
+          }
+        }
+      },
+      "SalesUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Titulo de la oferta"
+          },
+          "description": {
+            "type": "string",
+            "description": "Descripcion de la oferta"
+          },
+          "shop": {
+            "type": "string",
+            "description": "Tienda de la oferta"
+          },
+          "link": {
+            "type": "string",
+            "description": "Enlace a la oferta"
+          },
+          "old_price": {
+            "type": "number",
+            "description": "Precio antiguo de la oferta"
+          },
+          "new_price": {
+            "type": "number",
+            "description": "Precio nuevo de la oferta"
           }
         }
       }
