@@ -311,12 +311,25 @@
             }
           }
         }
-      },
+      }
+    },
+    "/admin/users/{id}": {
       "put": {
         "tags": ["admin"],
         "security": [
           {
             "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id del usuario",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
           }
         ],
         "requestBody": {
