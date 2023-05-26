@@ -311,6 +311,56 @@
             }
           }
         }
+      },
+      "put": {
+        "tags": ["admin"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserUpdateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Usuario actualizado correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserUniqueResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos no validos o usuario no encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No autorizado o usuario no encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/admin/users/{id}/reset-password": {
@@ -1520,6 +1570,43 @@
           "new_price": {
             "type": "number",
             "description": "Precio nuevo de la oferta"
+          }
+        }
+      },
+      "UserUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "Nombre de usuario"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email del usuario"
+          },
+          "admin": {
+            "type": "integer",
+            "description": "Si el usuario es administrador"
+          },
+          "blocked": {
+            "type": "integer",
+            "description": "Si el usuario esta bloqueado"
+          }
+        }
+      },
+      "UserUniqueResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UsersAdminResponse"
+              }
+            ]
           }
         }
       }
