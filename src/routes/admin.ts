@@ -144,7 +144,7 @@ router.delete('/sales/:id', async (req, res) => {
   const request = new mssql.Request()
   request.input('sale_id', mssql.Int, req.params.id)
   try {
-    await request.query(`delete from sales_delete from sales where sale_id = @sale_id`)
+    await request.query(`delete from sales where sale_id = @sale_id`)
     res
       .json(getSuccessfulFormatedResponse(200, 'Sale deleted'))
       .status(200)
