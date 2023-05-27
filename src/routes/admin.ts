@@ -227,4 +227,19 @@ router.delete('/faq/:id', async (req, res) => {
   }
 })
 
+router.delete('/news/:id', async (req, res) => {
+  const request = new mssql.Request()
+  request.input('news_id', mssql.Int, req.params.id)
+  try {
+    await request.query(`delete from news where news_id = @news_id`)
+    res
+      .json(getSuccessfulFormatedResponse(200, 'News deleted'))
+      .status(200)
+      .end()
+  } catch (err) {
+    console.log(err)
+    res.json(getDefaultErrorMessage()).status(500).end()
+  }
+})
+
 export default router
