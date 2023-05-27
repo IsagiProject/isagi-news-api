@@ -55,7 +55,7 @@ router.post('/register', async (req, res) => {
 
     await insertRequest.query(
       'insert into users (username, email, password, verification_token) values (@username, @email, @password, @token) '
-    ) 
+    )
     sendConfirmationMail(email, token)
     res
       .json(getSuccessfulFormatedResponse(200, 'User created'))
@@ -78,7 +78,20 @@ router.post('/login', async (req, res) => {
       `select * from users where email = @email and password = @password`
     )
     if (result.recordset.length > 0) {
-      const { user_id, username, admin } = result.recordset[0]
+      const { user_id, username, admin, email_verified_at } =
+        result.recordset[0]
+      if (!email_verified_at) {
+        res
+          .json(
+            getErrorFormattedResponse(
+              401,
+              'Email not verified, please check your email'
+            )
+          )
+          .status(401)
+          .end()
+        return
+      }
       const token = jwt.sign(
         { user_id, username, email, admin, remember },
         process.env.JWT_SECRET_KEY!,
@@ -217,14 +230,15 @@ router.post('/token/validate', async (req, res) => {
   }
 })
 
-router.post('/verify-email', async (req, res) => { //TODO: Verificar cuenta, asignar que la cuenta se ha verificado
+router.post('/verify-email', async (req, res) => {
+  //TODO: Verificar cuenta, asignar que la cuenta se ha verificado
   const { token } = req.body
   try {
     const request = new mssql.Request()
     request.input('token', mssql.VarChar, token)
-    const result = await request.query(
+    const result = (await request.query(
       'select * from users where verification_token = @token'
-    ) as any
+    )) as any
     if (result.recordset.length === 0) {
       res
         .json(getErrorFormattedResponse(404, 'User not found'))
