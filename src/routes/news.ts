@@ -73,7 +73,7 @@ router.get('/:id', async (req: Request, res: Response) => {
 router.get('/home/summary', async (req: Request, res: Response) => {
   try {
     const result = await mssql.query(
-      'select top 5 * from news order by news_id desc'
+      'select top 3 * from news order by news_id desc'
     )
     res.json(getDBFormattedResponse(200, result.recordset)).status(200).end()
   } catch (err) {
