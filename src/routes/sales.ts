@@ -155,4 +155,17 @@ router.post('/:id/comments', async (req, res) => {
   }
 })
 
+router.get('/home/summary', async (req, res) => {
+  try {
+    const request = new mssql.Request()
+    const result = await request.query(
+      'select top 5 * from sales order by sale_id desc'
+    )
+    res.json(getDBFormattedResponse(200, result.recordset)).status(200).end()
+  } catch (err) {
+    res.json(getDefaultErrorMessage).status(500).end()
+    console.log(err)
+  }
+})
+
 export default router
