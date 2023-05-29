@@ -144,7 +144,7 @@ router.delete('/sales/:id', async (req, res) => {
   const request = new mssql.Request()
   request.input('sale_id', mssql.Int, req.params.id)
   try {
-    await request.query(`delete from sales_delete from sales where sale_id = @sale_id`)
+    await request.query(`delete from sales where sale_id = @sale_id`)
     res
       .json(getSuccessfulFormatedResponse(200, 'Sale deleted'))
       .status(200)
@@ -219,6 +219,21 @@ router.delete('/faq/:id', async (req, res) => {
     )
     res
       .json(getSuccessfulFormatedResponse(200, 'Question deleted'))
+      .status(200)
+      .end()
+  } catch (err) {
+    console.log(err)
+    res.json(getDefaultErrorMessage()).status(500).end()
+  }
+})
+
+router.delete('/news/:id', async (req, res) => {
+  const request = new mssql.Request()
+  request.input('news_id', mssql.Int, req.params.id)
+  try {
+    await request.query(`delete from news where news_id = @news_id`)
+    res
+      .json(getSuccessfulFormatedResponse(200, 'News deleted'))
       .status(200)
       .end()
   } catch (err) {

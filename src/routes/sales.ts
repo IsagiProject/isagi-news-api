@@ -68,7 +68,7 @@ router.post('/', async (req, res) => {
     request.input('link', mssql.VarChar, req.body.link)
     request.input('old_price', mssql.Float, req.body.old_price)
     request.input('new_price', mssql.Float, req.body.new_price)
-    request.input('user_id', mssql.Int, userId)
+    request.input('user_id', mssql.Int, userId) 
     const result = await request.query(
       `insert into sales (title, description, image, shop, link, old_price, new_price, user_id) values (@title, @description, @image, @shop, @link, @old_price, @new_price, @user_id); select @@identity as sale_id`
     )
@@ -151,6 +151,19 @@ router.post('/:id/comments', async (req, res) => {
       .end()
   } catch (err) {
     res.json(getDefaultErrorMessage()).status(500).end()
+    console.log(err)
+  }
+})
+
+router.get('/home/summary', async (req, res) => {
+  try {
+    const request = new mssql.Request()
+    const result = await request.query(
+      'select top 3 * from sales order by sale_id desc'
+    )
+    res.json(getDBFormattedResponse(200, result.recordset)).status(200).end()
+  } catch (err) {
+    res.json(getDefaultErrorMessage).status(500).end()
     console.log(err)
   }
 })
